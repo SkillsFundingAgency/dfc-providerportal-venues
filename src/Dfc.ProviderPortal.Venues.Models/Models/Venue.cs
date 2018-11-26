@@ -6,6 +6,7 @@ namespace Dfc.ProviderPortal.Venues.Models
 {
     public class Venue
     {
+        public Guid id { get; set; }
         public int UKPRN { get; set; }
         public int PROVIDER_ID { get; set; }
         public int VENUE_ID { get; set; }
