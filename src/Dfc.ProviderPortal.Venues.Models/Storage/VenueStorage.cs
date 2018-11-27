@@ -45,9 +45,10 @@ namespace Dfc.ProviderPortal.Venues.Storage
                 foreach (Venue v in venues)
                 {
                     // Add venue doc to collection
-                    v.id = Guid.NewGuid();
-                    Task<ResourceResponse<Document>> task = docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
-                                                                                          v);
+                    //v.id = Guid.NewGuid();
+                    //Task<ResourceResponse<Document>> task = docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
+                    //                                                                      v);
+                    Task<ResourceResponse<Document>> task = InsertDocAsync(v, log);
                     task.Wait();
                 }
 
@@ -62,6 +63,23 @@ namespace Dfc.ProviderPortal.Venues.Storage
             } finally {
             }
             return true;
+        }
+
+        /// <summary>
+        /// Inserts a single venue document into the collection
+        /// </summary>
+        /// <param name="venue">The Venue to insert</param>
+        /// <param name="log">TraceWriter for logging info/errors</param>
+        public async Task<ResourceResponse<Document>> InsertDocAsync(Venue venue, ILogger log)
+        {
+            // Add venue doc to collection
+            try {
+                venue.id = Guid.NewGuid();
+                return await docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
+                                                           venue);
+            } catch (Exception ex) {
+                    throw ex;
+            }
         }
 
         /// <summary>

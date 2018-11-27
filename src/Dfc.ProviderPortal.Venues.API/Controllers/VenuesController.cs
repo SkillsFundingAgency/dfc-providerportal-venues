@@ -16,7 +16,6 @@ namespace Dfc.ProviderPortal.Venues.API.Controllers
     [ApiController]
     public class VenuesController : ControllerBase
     {
-        //private Microsoft.Azure.WebJobs.Host.TraceWriter _log = null;
         private ILogger _log = null;
 
         public VenuesController(ILogger<VenuesController> logger) {
@@ -32,19 +31,28 @@ namespace Dfc.ProviderPortal.Venues.API.Controllers
             return new ActionResult<IEnumerable<Venue>>(task.Result);
         }
 
-        // GET api/venues/5
+        //// GET api/venues/byPRN/10001234
+        //[HttpGet("{PRN}", Name = "VenuesGetByPRN")]
+        //public ActionResult<IEnumerable<Venue>> ByPRN(int PRN)
+        //{
+        //    return new ActionResult<IEnumerable<Venue>>(new VenueStorage().GetByPRN(PRN, _log));
+        //}
+
+        // GET api/venues/620a83bf-902f-4257-9a37-2c9a95276ad3
         [HttpGet("{id}", Name="VenueGetById")]
         public ActionResult<Venue> Get(Guid id)
         {
-            Venue v = new VenueStorage().GetById(id, _log);
-            return new ActionResult<Venue>(v) ?? NotFound();
+            Venue venue = new VenueStorage().GetById(id, _log);
+            return new ActionResult<Venue>(venue) ?? NotFound();
         }
 
-        //// POST api/venues
-        //[HttpPost]
-        //public void Post([FromBody] Venue venue)
-        //{
-        //}
+        // POST api/venues
+        [HttpPost]
+        public void Post([FromBody] Venue venue)
+        {
+            Task task = new VenueStorage().InsertDocAsync(venue, _log);
+            task.Wait();
+        }
 
         //// POST api/venues
         //[HttpPost]
