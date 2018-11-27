@@ -22,7 +22,7 @@ namespace Dfc.ProviderPortal.Venues
                                                           TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed GetAllVenues request");
-            Task<IEnumerable<Venue>> task = new VenueStorage().GetAll(log);
+            Task<IEnumerable<Venue>> task = new VenueStorage().GetAllAsync(new LogHelper(log));
             task.Wait();
 
             // Return results

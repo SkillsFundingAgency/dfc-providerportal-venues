@@ -33,7 +33,7 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// </summary>
         /// <param name="venues">Venue data from SQL database</param>
         /// <param name="log">TraceWriter for logging info/errors</param>
-        public async Task<bool> InsertDocs(IEnumerable<Venue> venues, TraceWriter log)
+        public async Task<bool> InsertDocsAsync(IEnumerable<Venue> venues, ILogger log) //TraceWriter log)
         {
             // Insert documents into collection
             try
@@ -53,11 +53,11 @@ namespace Dfc.ProviderPortal.Venues.Storage
 
             } catch (DocumentClientException ex) {
                 Exception be = ex.GetBaseException();
-                log.Error($"Exception rasied at: {DateTime.Now}\n {be.Message}", ex);
+                log.LogError($"Exception rasied at: {DateTime.Now}\n {be.Message}", ex);
                 throw;
             } catch (Exception ex) {
                 Exception be = ex.GetBaseException();
-                log.Error($"Exception rasied at: {DateTime.Now}\n {be.Message}", ex);
+                log.LogError($"Exception rasied at: {DateTime.Now}\n {be.Message}", ex);
                 throw;
             } finally {
             }
@@ -68,47 +68,52 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// Gets all documents from the collection and returns the data as Venue objects
         /// </summary>
         /// <param name="log">TraceWriter for logging info/errors</param>
-        public async Task<IEnumerable<Venue>> GetAll(TraceWriter log)
+        public async Task<IEnumerable<Venue>> GetAllAsync(ILogger log) //TraceWriter log)
         {
-            // Get all venue documents in the collection
-            string token = null;
-            Task<FeedResponse<dynamic>> task = null;
-            List<dynamic> docs = new List<dynamic>();
-            log.Info("Getting all venues from collection");
+            try
+            {
+                // Get all venue documents in the collection
+                string token = null;
+                Task<FeedResponse<dynamic>> task = null;
+                List<dynamic> docs = new List<dynamic>();
+                log.LogInformation("Getting all venues from collection");
 
+                // Read documents in batches, using continuation token to make sure we get them all
+                do {
+                    log.LogInformation("Querying collection");
+                    task = docClient.ReadDocumentFeedAsync(Collection.SelfLink, new FeedOptions { MaxItemCount = -1, RequestContinuation = token });
+                    //task.Wait();
+                    token = task.Result.ResponseContinuation;
+                    log.LogInformation("Collating results");
+                    docs.AddRange(task.Result.ToList());
+                } while (token != null);
+                //FeedResponse<dynamic> response = await task;
 
-            // Read documents in batches, using continuation token to make sure we get them all
-            do {
-                log.Info("Querying collection");
-                task = docClient.ReadDocumentFeedAsync(Collection.SelfLink, new FeedOptions { MaxItemCount = -1, RequestContinuation = token });
-                //task.Wait();
-                token = task.Result.ResponseContinuation;
-                log.Info("Collating results");
-                docs.AddRange(task.Result.ToList());
-            } while (token != null);
-            //FeedResponse<dynamic> response = await task;
+                // Collections are schema-less and can therefore hold any data, even though we're only storing Venue docs
+                // So we can cast the returned data by serializing to json and then deserialising into Venue objects
+                log.LogInformation($"Serializing data for {docs.LongCount()} venues");
+                string json = JsonConvert.SerializeObject(docs);
+                return JsonConvert.DeserializeObject<IEnumerable<Venue>>(json);
 
-            // Collections are schema-less and can therefore hold any data, even though we're only storing Venue docs
-            // So we can cast the returned data by serializing to json and then deserialising into Venue objects
-            log.Info($"Serializing data for {docs.LongCount()} venues");
-            string json = JsonConvert.SerializeObject(docs);
-            return JsonConvert.DeserializeObject<IEnumerable<Venue>>(json);
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
 
 
         //public async Task<IEnumerable<Venue>> Sync(TraceWriter log)
-        public IEnumerable<Venue> Sync(TraceWriter log, out int count)
+        public IEnumerable<Venue> Sync(ILogger log, out int count) // TraceWriter log, out int count)
         {
-            log.Info("Syncing with SQL database");
+            log.LogInformation("Syncing with SQL database");
             IEnumerable<Venue> venues = SQLSync.GetAll(out count);
             return venues;
         }
 
 
-        async private Task<bool> TruncateCollectionAsync(TraceWriter log)
+        async private Task<bool> TruncateCollectionAsync(ILogger log) //TraceWriter log)
         {
             try {
-                log.Info("Deleting all docs from venues collection");
+                log.LogInformation("Deleting all docs from venues collection");
                 IEnumerable<Document> docs = docClient.CreateDocumentQuery<Document>(Collection.SelfLink,
                                                                                      new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
                                                       .AsEnumerable();
@@ -122,20 +127,34 @@ namespace Dfc.ProviderPortal.Venues.Storage
         }
 
 
-        ///// <summary>
-        ///// Gets all documents with matching PRN from the collection and returns the data as Venue objects
-        ///// </summary>
-        ///// <param name="PRN">UKPRN to search by</param>
-        ///// <param name="log">TraceWriter for logging info/errors</param>
-        //public Venue GetByPRN(string PRN, TraceWriter log)
-        //{
-        //    // Get matching venue by PRN from the collection
-        //    log.LogInformation($"Getting venues from collection with PRN {PRN}");
-        //    return client.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
-        //                 .Where(v => v.PROVIDER_ID == PRN)
-        //                 .AsEnumerable()
-        //                 .FirstOrDefault();
-        //}
+        /// <summary>
+        /// Gets document with matching id from the collection and returns the data as Venue object
+        /// </summary>
+        /// <param name="id">Document id to search by</param>
+        /// <param name="log">TraceWriter for logging info/errors</param>
+        public Venue GetById(Guid id, ILogger log) //TraceWriter log)
+        {
+            // Get matching venue by PRN from the collection
+            log.LogInformation($"Getting venues from collection with Id {id}");
+            return docClient.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
+                            .Where(v => v.id == id)
+                            .AsEnumerable()
+                            .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets all documents with matching PRN from the collection and returns the data as Venue objects
+        /// </summary>
+        /// <param name="PRN">UKPRN to search by</param>
+        /// <param name="log">TraceWriter for logging info/errors</param>
+        public IEnumerable<Venue> GetByPRN(int PRN, ILogger log) //TraceWriter log)
+        {
+            // Get matching venue by PRN from the collection
+            log.LogInformation($"Getting venues from collection with PRN {PRN}");
+            return docClient.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
+                            .Where(v => v.UKPRN == PRN)
+                            .AsEnumerable();
+        }
 
         ///// <summary>
         ///// Gets all documents with partial matching Name from the collection and returns the data as Venue objects

@@ -16,7 +16,7 @@ namespace Dfc.ProviderPortal.Venues
         /// Built config root from settings file
         /// </summary>
         static private IConfigurationRoot config = new ConfigurationBuilder().AddEnvironmentVariables()
-                                                                            .Build();
+                                                                             .Build();
 
         /// <summary>
         /// Properties wrapping up app setttings

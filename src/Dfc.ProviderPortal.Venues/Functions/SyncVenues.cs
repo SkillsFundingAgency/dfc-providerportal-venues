@@ -22,12 +22,12 @@ namespace Dfc.ProviderPortal.Venues
                                                           TraceWriter log)
         {
             log.Info("C# HTTP trigger function processed SyncVenues request");
-            IEnumerable<Venue> venues = new VenueStorage().Sync(log, out int count);
+            IEnumerable<Venue> venues = new VenueStorage().Sync(new LogHelper(log), out int count);
             //task.Wait();
 
             // Store venues in Cosmos DB collection
             log.Info($"Inserting {count} providers to CosmosDB providers collection");
-            Task<bool> task = new VenueStorage().InsertDocs(venues, log);
+            Task<bool> task = new VenueStorage().InsertDocsAsync(venues, new LogHelper(log));
             task.Wait();
             //return req.CreateResponse<string>(HttpStatusCode.OK, JsonConvert.SerializeObject(output));
 
