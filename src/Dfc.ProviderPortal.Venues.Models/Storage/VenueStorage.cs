@@ -119,7 +119,6 @@ namespace Dfc.ProviderPortal.Venues.Storage
         }
 
 
-        //public async Task<IEnumerable<Venue>> Sync(TraceWriter log)
         public IEnumerable<Venue> Sync(ILogger log, out int count) // TraceWriter log, out int count)
         {
             log.LogInformation("Syncing with SQL database");

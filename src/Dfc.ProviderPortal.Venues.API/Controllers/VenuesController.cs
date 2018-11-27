@@ -31,12 +31,22 @@ namespace Dfc.ProviderPortal.Venues.API.Controllers
             return new ActionResult<IEnumerable<Venue>>(task.Result);
         }
 
-        //// GET api/venues/byPRN/10001234
-        //[HttpGet("{PRN}", Name = "VenuesGetByPRN")]
-        //public ActionResult<IEnumerable<Venue>> ByPRN(int PRN)
-        //{
-        //    return new ActionResult<IEnumerable<Venue>>(new VenueStorage().GetByPRN(PRN, _log));
-        //}
+        // GET api/providers/10000409/venues
+        [Route("/api/providers/{PRN}/venues")]
+        [HttpGet(Name = "VenuesGetByPRN")]
+        public ActionResult<IEnumerable<Venue>> GetByPRN(int PRN)
+        {
+            return new ActionResult<IEnumerable<Venue>>(new VenueStorage().GetByPRN(PRN, _log));
+        }
+
+        // GET api/providers/10000409/venues/DENTON COMMUNITY COLLEGE
+        [Route("/api/providers/{PRN}/venues/{Name}")]
+        [HttpGet(Name = "VenuesGetByPRNAndName")]
+        public ActionResult<IEnumerable<Venue>> GetByPRNAndName(int PRN, string Name)
+        {
+            IEnumerable<Venue> results = new VenueStorage().GetByPRN(PRN, _log);
+            return new ActionResult<IEnumerable<Venue>>(results.Where(p => p.VENUE_NAME == Name));
+        }
 
         // GET api/venues/620a83bf-902f-4257-9a37-2c9a95276ad3
         [HttpGet("{id}", Name="VenueGetById")]
