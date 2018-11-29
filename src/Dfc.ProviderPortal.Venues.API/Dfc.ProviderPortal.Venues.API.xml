@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dfc.ProviderPortal.Venues.API</name>
+    </assembly>
+    <members>
+        <member name="T:Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController">
+            <summary>
+            Controller classs for Venues API
+            Provider actions moved from VenuesController to allow Swagger to resolve routes properly
+            </summary>
+        </member>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController.#ctor(Microsoft.Extensions.Logging.ILogger{Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController.GetByPRN(System.Int32)">
+            <summary>
+            All venues by PRN, for example:
+            GET api/providers/10000409/venues
+            </summary>
+            <param name="PRN">UKPRN value</param>
+            <returns>List of matching venues</returns>
+        </member>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController.GetByPRNAndName(System.Int32,System.String)">
+            <summary>
+            All venues by PRN with an exact (case sensitive) match on name, for example:
+            GET api/providers/10000409/venues/DENTON COMMUNITY COLLEGE
+            </summary>
+            <param name="PRN">UKPRN value</param>
+            <param name="Name">Venue name</param>
+            <returns>List of matching venues</returns>
+        </member>
+        <member name="T:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController">
+            <summary>
+            Controller classs for Venues API
+            </summary>
+        </member>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.#ctor(Microsoft.Extensions.Logging.ILogger{Dfc.ProviderPortal.Venues.API.Controllers.VenuesController})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.Get">
+            <summary>
+            All venues, for example:
+            GET api/venues
+            </summary>
+            <returns>All venues</returns>
+        </member>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.Get(System.Guid)">
+            <summary>
+            Venue (if any) with matching id, for example:
+            GET api/venues/620a83bf-902f-4257-9a37-2c9a95276ad3
+            </summary>
+            <param name="id">GUID id value</param>
+            <returns>Matching venue, if any</returns>
+        </member>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.Post(Dfc.ProviderPortal.Venues.Models.Venue)">
+            <summary>
+            Create new venue via post
+            POST api/venues
+            </summary>
+            <param name="venue">Data for new venue</param>
+        </member>
+    </members>
+</doc>

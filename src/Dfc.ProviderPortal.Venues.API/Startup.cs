@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
 
 namespace Dfc.ProviderPortal.Venues.API
@@ -28,6 +29,11 @@ namespace Dfc.ProviderPortal.Venues.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Venues API", Version = "v1" });
+            });
+
             //TODO: inject cosmos service here
         }
 
@@ -48,6 +54,12 @@ namespace Dfc.ProviderPortal.Venues.API
             //    routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
             //}
             );
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Venues API v1");
+            });
         }
     }
 }
