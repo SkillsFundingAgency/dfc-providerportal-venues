@@ -117,11 +117,15 @@
               },
               {
                 "name": "CosmosDBDatabase",
-                "value": "venues"
+                "value": "ukrlp"
               },
               {
                 "name": "SQLConnectionString",
                 "value": "[parameters('SQLConnectionString')]"
+              },
+              {
+                "name": "CollectionName",
+                "value": "venues"
               }
             ]
           }
