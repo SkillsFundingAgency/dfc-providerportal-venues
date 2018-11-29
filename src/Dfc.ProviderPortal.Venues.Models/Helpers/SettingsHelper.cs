@@ -22,9 +22,9 @@ namespace Dfc.ProviderPortal.Venues
         /// Properties wrapping up app setttings
         /// </summary>
         static public string ConnectionString = config.GetValue<string>("APPSETTING_SQLConnectionString");
-        static public string StorageURI = config.GetValue<string>("APPSETTING_CosmosStorageURI");
-        static public string PrimaryKey = config.GetValue<string>("APPSETTING_CosmosPrimaryKey");
-        static public string Database = config.GetValue<string>("APPSETTING_CosmosDatabase");
-        static public string Collection = config.GetValue<string>("APPSETTING_CosmosCollection");
+        static public string StorageURI = config.GetValue<string>("APPSETTING_CosmosDBStorageURI");
+        static public string PrimaryKey = config.GetValue<string>("APPSETTING_CosmosDBPrimaryKey");
+        static public string Database = config.GetValue<string>("APPSETTING_CosmosDBDatabase");
+        static public string Collection = config.GetValue<string>("APPSETTING_CollectionName");
     }
 }

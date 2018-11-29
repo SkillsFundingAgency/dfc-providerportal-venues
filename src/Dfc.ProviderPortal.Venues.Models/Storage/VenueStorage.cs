@@ -99,7 +99,8 @@ namespace Dfc.ProviderPortal.Venues.Storage
                 // Read documents in batches, using continuation token to make sure we get them all
                 do {
                     log.LogInformation("Querying collection with:");
-                    log.LogInformation($"docCient hash: {docClient.GetHashCode().ToString()}");
+                    log.LogInformation($"StorageURI: {SettingsHelper.StorageURI}");
+                    log.LogInformation($"docCient hash: {docClient?.GetHashCode().ToString()}");
                     log.LogInformation($"Database: {SettingsHelper.Database}");
                     log.LogInformation($"Collection: {SettingsHelper.Collection}");
                     log.LogInformation($"Coll Link: {Collection?.SelfLink}");
