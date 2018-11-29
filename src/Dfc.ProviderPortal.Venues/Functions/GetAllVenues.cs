@@ -19,14 +19,14 @@ namespace Dfc.ProviderPortal.Venues
     {
         [FunctionName("GetAllVenues")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req,
-                                                          TraceWriter log)
+                                                          ILogger log)
         {
-            log.Info("C# HTTP trigger function processed GetAllVenues request");
+            //log.Info("C# HTTP trigger function processed GetAllVenues request");
             Task<IEnumerable<Venue>> task = new VenueStorage().GetAllAsync(new LogHelper(log));
             task.Wait();
 
             // Return results
-            log.Info($"GetAllVenues returning results");
+            //log.Info($"GetAllVenues returning results");
             //return req.CreateResponse<string>(HttpStatusCode.OK, JsonConvert.SerializeObject(task.Result));
             HttpResponseMessage response = req.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(JsonConvert.SerializeObject(task.Result), Encoding.UTF8, "application/json");

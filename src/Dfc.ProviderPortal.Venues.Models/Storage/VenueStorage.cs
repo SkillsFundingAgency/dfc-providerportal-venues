@@ -98,7 +98,12 @@ namespace Dfc.ProviderPortal.Venues.Storage
 
                 // Read documents in batches, using continuation token to make sure we get them all
                 do {
-                    log.LogInformation("Querying collection");
+                    log.LogInformation("Querying collection with:");
+                    log.LogInformation($"docCient hash: {docClient.GetHashCode().ToString()}");
+                    log.LogInformation($"Database: {SettingsHelper.Database}");
+                    log.LogInformation($"Collection: {SettingsHelper.Collection}");
+                    log.LogInformation($"Coll Link: {Collection?.SelfLink}");
+                    log.LogInformation($"Coll obj id: {Collection.Id.ToString()}");
                     task = docClient.ReadDocumentFeedAsync(Collection.SelfLink, new FeedOptions { MaxItemCount = -1, RequestContinuation = token });
                     //task.Wait();
                     token = task.Result.ResponseContinuation;
