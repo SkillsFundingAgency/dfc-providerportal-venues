@@ -32,8 +32,8 @@
 //        /// Inserts passed objects as documents into CosmosDB collection
 //        /// </summary>
 //        /// <param name="venues">Venue data from SQL database</param>
-//        /// <param name="log">TraceWriter for logging info/errors</param>
-//        public async Task<bool> InsertDocs(IEnumerable<Venue> venues, TraceWriter log)
+//        /// <param name="log">ILogger for logging info/errors</param>
+//        public async Task<bool> InsertDocs(IEnumerable<Venue> venues, ILogger log)
 //        {
 //            // Insert documents into collection
 //            try
@@ -67,8 +67,8 @@
 //        /// <summary>
 //        /// Gets all documents from the collection and returns the data as Venue objects
 //        /// </summary>
-//        /// <param name="log">TraceWriter for logging info/errors</param>
-//        public async Task<IEnumerable<Venue>> GetAll(TraceWriter log)
+//        /// <param name="log">ILogger for logging info/errors</param>
+//        public async Task<IEnumerable<Venue>> GetAll(ILogger log)
 //        {
 //            // Get all venue documents in the collection
 //            log.Info("Getting all venues from collection");
@@ -83,8 +83,8 @@
 //        }
 
 
-//        //public async Task<IEnumerable<Venue>> Sync(TraceWriter log)
-//        public IEnumerable<Venue> Sync(TraceWriter log, out int count)
+//        //public async Task<IEnumerable<Venue>> Sync(ILogger log)
+//        public IEnumerable<Venue> Sync(ILogger log, out int count)
 //        {
 //            log.Info("Syncing with SQL database");
 //            IEnumerable<Venue> venues = SQLSync.GetAll(out count);
@@ -92,7 +92,7 @@
 //        }
 
 
-//        async private Task<bool> TruncateCollectionAsync(TraceWriter log)
+//        async private Task<bool> TruncateCollectionAsync(ILogger log)
 //        {
 //            try {
 //                log.Info("Deleting all docs from venues collection");
@@ -113,8 +113,8 @@
 //        ///// Gets all documents with matching PRN from the collection and returns the data as Venue objects
 //        ///// </summary>
 //        ///// <param name="PRN">UKPRN to search by</param>
-//        ///// <param name="log">TraceWriter for logging info/errors</param>
-//        //public Venue GetByPRN(string PRN, TraceWriter log)
+//        ///// <param name="log">ILogger for logging info/errors</param>
+//        //public Venue GetByPRN(string PRN, ILogger log)
 //        //{
 //        //    // Get matching venue by PRN from the collection
 //        //    log.LogInformation($"Getting venues from collection with PRN {PRN}");
@@ -128,8 +128,8 @@
 //        ///// Gets all documents with partial matching Name from the collection and returns the data as Venue objects
 //        ///// </summary>
 //        ///// <param name="Name">Name fragment to search by</param>
-//        ///// <param name="log">TraceWriter for logging info/errors</param>
-//        //public IEnumerable<Venue> GetByName(string Name, TraceWriter log, out long count)
+//        ///// <param name="log">ILogger for logging info/errors</param>
+//        //public IEnumerable<Venue> GetByName(string Name, ILogger log, out long count)
 //        //{
 //        //    // Get matching venue by passed fragment of Name from the collection
 //        //    log.LogInformation($"Getting venues from collection matching Name {Name}");

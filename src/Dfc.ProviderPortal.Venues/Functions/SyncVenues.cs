@@ -19,20 +19,20 @@ namespace Dfc.ProviderPortal.Venues
     {
         [FunctionName("SyncVenues")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req,
-                                                          TraceWriter log)
+                                                          ILogger log)
         {
-            log.Info("C# HTTP trigger function processed SyncVenues request");
+            log.LogInformation("C# HTTP trigger function processed SyncVenues request");
             IEnumerable<Venue> venues = new VenueStorage().Sync(new LogHelper(log), out int count);
             //task.Wait();
 
             // Store venues in Cosmos DB collection
-            log.Info($"Inserting {count} providers to CosmosDB providers collection");
+            log.LogInformation($"Inserting {count} providers to CosmosDB providers collection");
             Task<bool> task = new VenueStorage().InsertDocsAsync(venues, new LogHelper(log));
             task.Wait();
             //return req.CreateResponse<string>(HttpStatusCode.OK, JsonConvert.SerializeObject(output));
 
             // Return results
-            log.Info($"SyncVenues returning results");
+            log.LogInformation($"SyncVenues returning results");
             HttpResponseMessage response = req.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(JsonConvert.SerializeObject(venues), Encoding.UTF8, "application/json");
             return response;

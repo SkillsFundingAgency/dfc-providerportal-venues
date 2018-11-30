@@ -32,8 +32,8 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// Inserts passed objects as documents into CosmosDB collection
         /// </summary>
         /// <param name="venues">Venue data from SQL database</param>
-        /// <param name="log">TraceWriter for logging info/errors</param>
-        public async Task<bool> InsertDocsAsync(IEnumerable<Venue> venues, ILogger log) //TraceWriter log)
+        /// <param name="log">ILogger for logging info/errors</param>
+        public async Task<bool> InsertDocsAsync(IEnumerable<Venue> venues, ILogger log)
         {
             // Insert documents into collection
             try
@@ -69,7 +69,7 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// Inserts a single venue document into the collection
         /// </summary>
         /// <param name="venue">The Venue to insert</param>
-        /// <param name="log">TraceWriter for logging info/errors</param>
+        /// <param name="log">ILogger for logging info/errors</param>
         public async Task<ResourceResponse<Document>> InsertDocAsync(Venue venue, ILogger log)
         {
             // Add venue doc to collection
@@ -85,8 +85,8 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// <summary>
         /// Gets all documents from the collection and returns the data as Venue objects
         /// </summary>
-        /// <param name="log">TraceWriter for logging info/errors</param>
-        public async Task<IEnumerable<Venue>> GetAllAsync(ILogger log) //TraceWriter log)
+        /// <param name="log">ILogger for logging info/errors</param>
+        public async Task<IEnumerable<Venue>> GetAllAsync(ILogger log)
         {
             try
             {
@@ -98,13 +98,13 @@ namespace Dfc.ProviderPortal.Venues.Storage
 
                 // Read documents in batches, using continuation token to make sure we get them all
                 do {
-                    log.LogInformation("Querying collection with:");
-                    log.LogInformation($"StorageURI: {SettingsHelper.StorageURI}");
-                    log.LogInformation($"docCient hash: {docClient?.GetHashCode().ToString()}");
-                    log.LogInformation($"Database: {SettingsHelper.Database}");
-                    log.LogInformation($"Collection: {SettingsHelper.Collection}");
-                    log.LogInformation($"Coll Link: {Collection?.SelfLink}");
-                    log.LogInformation($"Coll obj id: {Collection.Id.ToString()}");
+                    //log.LogInformation("Querying collection with:");
+                    //log.LogInformation($"StorageURI: {SettingsHelper.StorageURI}");
+                    //log.LogInformation($"docCient hash: {docClient?.GetHashCode().ToString()}");
+                    //log.LogInformation($"Database: {SettingsHelper.Database}");
+                    //log.LogInformation($"Collection: {SettingsHelper.Collection}");
+                    //log.LogInformation($"Coll Link: {Collection?.SelfLink}");
+                    //log.LogInformation($"Coll obj id: {Collection.Id.ToString()}");
                     task = docClient.ReadDocumentFeedAsync(Collection.SelfLink, new FeedOptions { MaxItemCount = -1, RequestContinuation = token });
                     //task.Wait();
                     token = task.Result.ResponseContinuation;
@@ -125,7 +125,7 @@ namespace Dfc.ProviderPortal.Venues.Storage
         }
 
 
-        public IEnumerable<Venue> Sync(ILogger log, out int count) // TraceWriter log, out int count)
+        public IEnumerable<Venue> Sync(ILogger log, out int count)
         {
             log.LogInformation("Syncing with SQL database");
             IEnumerable<Venue> venues = SQLSync.GetAll(out count);
@@ -133,7 +133,7 @@ namespace Dfc.ProviderPortal.Venues.Storage
         }
 
 
-        async private Task<bool> TruncateCollectionAsync(ILogger log) //TraceWriter log)
+        async private Task<bool> TruncateCollectionAsync(ILogger log)
         {
             try {
                 log.LogInformation("Deleting all docs from venues collection");
@@ -154,8 +154,8 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// Gets document with matching id from the collection and returns the data as Venue object
         /// </summary>
         /// <param name="id">Document id to search by</param>
-        /// <param name="log">TraceWriter for logging info/errors</param>
-        public Venue GetById(Guid id, ILogger log) //TraceWriter log)
+        /// <param name="log">Ilogger for logging info/errors</param>
+        public Venue GetById(Guid id, ILogger log)
         {
             // Get matching venue by PRN from the collection
             log.LogInformation($"Getting venues from collection with Id {id}");
@@ -169,8 +169,8 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// Gets all documents with matching PRN from the collection and returns the data as Venue objects
         /// </summary>
         /// <param name="PRN">UKPRN to search by</param>
-        /// <param name="log">TraceWriter for logging info/errors</param>
-        public IEnumerable<Venue> GetByPRN(int PRN, ILogger log) //TraceWriter log)
+        /// <param name="log">ILogger for logging info/errors</param>
+        public IEnumerable<Venue> GetByPRN(int PRN, ILogger log)
         {
             // Get matching venue by PRN from the collection
             log.LogInformation($"Getting venues from collection with PRN {PRN}");
@@ -178,21 +178,5 @@ namespace Dfc.ProviderPortal.Venues.Storage
                             .Where(v => v.UKPRN == PRN)
                             .AsEnumerable();
         }
-
-        ///// <summary>
-        ///// Gets all documents with partial matching Name from the collection and returns the data as Venue objects
-        ///// </summary>
-        ///// <param name="Name">Name fragment to search by</param>
-        ///// <param name="log">TraceWriter for logging info/errors</param>
-        //public IEnumerable<Venue> GetByName(string Name, TraceWriter log, out long count)
-        //{
-        //    // Get matching venue by passed fragment of Name from the collection
-        //    log.LogInformation($"Getting venues from collection matching Name {Name}");
-        //    IQueryable<Venue> qry = client.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
-        //                                     .Where(p => p.PROVIDER_ID.ToLower().Contains(Name.ToLower()));
-        //    IEnumerable<Venue> matches = qry.AsEnumerable();
-        //    count = matches.LongCount();
-        //    return matches;
-        //}
     }
 }
