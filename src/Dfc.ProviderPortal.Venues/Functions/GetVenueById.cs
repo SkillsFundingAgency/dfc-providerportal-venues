@@ -18,30 +18,40 @@ namespace Dfc.ProviderPortal.Venues
 {
     public static class GetVenueById
     {
-        private class PostData {
-            public string id { get; set; }
-        }
+        //private class PostData {
+        //    public string id { get; set; }
+        //}
 
         [FunctionName("GetVenueById")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req,
                                                           ILogger log)
         {
-            // Get passed argument (from query if present, if from JSON posted in body if not)
-            log.LogInformation($"GetVenueById starting");
-            string Id = req.RequestUri.ParseQueryString()["id"]?.ToString()
-                            ?? (await req.Content.ReadAsAsync<PostData>())?.id;
-            if (Id == null)
-                throw new FunctionException("Missing id argument", "GetVenueById", null);
-            if (!Guid.TryParse(Id, out Guid parsed))
-                throw new FunctionException("Invalid id argument", "GetVenueById", null);
+            Venue v = null;
+            HttpResponseMessage response = req.CreateResponse(HttpStatusCode.InternalServerError);
 
-            //log.Info("C# HTTP trigger function processed GetVenueById request");
-            Venue v = new VenueStorage().GetById(parsed, log);
+            try {
+                // Get passed argument (from query if present, if from JSON posted in body if not)
+                log.LogInformation($"GetVenueById starting");
+                string Id = req.RequestUri.ParseQueryString()["id"]?.ToString()
+                                ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.id;
+                if (Id == null)
+                    //throw new FunctionException("Missing id argument", "GetVenueById", null);
+                    response = req.CreateResponse(HttpStatusCode.BadRequest, ResponseHelper.ErrorMessage("Missing id argument"));
+                else if (!Guid.TryParse(Id, out Guid parsed))
+                    //throw new FunctionException("Invalid id argument", "GetVenueById", null);
+                    response = req.CreateResponse(HttpStatusCode.BadRequest, ResponseHelper.ErrorMessage("Invalid id argument"));
+                else {
+                    // Get data
+                    v = new VenueStorage().GetById(parsed, log);
+                    log.LogInformation($"GetVenueById returning { v?.VENUE_NAME ?? "no results"}");
 
-            // Return results
-            log.LogInformation($"GetVenueById returning { v.VENUE_NAME }");
-            HttpResponseMessage response = req.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(JsonConvert.SerializeObject(v), Encoding.UTF8, "application/json");
+                    // Return results
+                    response = req.CreateResponse(v == null ? HttpStatusCode.NoContent : HttpStatusCode.OK);
+                    response.Content = new StringContent(JsonConvert.SerializeObject(v), Encoding.UTF8, "application/json");
+                }
+            } catch (Exception ex) {
+                throw ex;
+            }
             return response;
         }
     }

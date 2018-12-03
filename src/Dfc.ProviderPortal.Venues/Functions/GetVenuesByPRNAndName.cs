@@ -17,13 +17,14 @@ using Dfc.ProviderPortal.Venues.Storage;
 
 namespace Dfc.ProviderPortal.Venues
 {
-    public static class GetVenuesByPRN
+    public static class GetVenuesByPRNAndName
     {
         //private class PostData {
         //    public string PRN { get; set; }
+        //    public string ProviderName { get; set; }
         //}
 
-        [FunctionName("GetVenuesByPRN")]
+        [FunctionName("GetVenuesByPRNAndName")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req,
                                                           ILogger log)
         {
@@ -32,19 +33,24 @@ namespace Dfc.ProviderPortal.Venues
 
             try {
                 // Get passed argument (from query if present, if from JSON posted in body if not)
-                log.LogInformation($"GetVenuesByPRN starting");
+                log.LogInformation($"GetVenuesByPRNAndName starting");
                 string PRN = req.RequestUri.ParseQueryString()["prn"]?.ToString()
                                 ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.PRN;
+                string ProviderName = req.RequestUri.ParseQueryString()["Name"]?.ToString()
+                                ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.ProviderName;
                 if (PRN == null)
-                    //throw new FunctionException("Missing PRN argument", "GetVenuesByPRN", null);
+                    //throw new FunctionException("Missing PRN argument", "GetVenuesByPRNAndName", null);
                     response = req.CreateResponse(HttpStatusCode.BadRequest, ResponseHelper.ErrorMessage("Missing PRN argument"));
+                else if (ProviderName == null)
+                    //throw new FunctionException("Missing ProviderName argument", "GetVenuesByPRNAndName", null);
+                    response = req.CreateResponse(HttpStatusCode.BadRequest, ResponseHelper.ErrorMessage("Missing Name argument"));
                 else if (!int.TryParse(PRN, out int parsed))
-                    //throw new FunctionException("Invalid PRN argument", "GetVenuesByPRN", null);
+                    //throw new FunctionException("Invalid PRN argument", "GetVenuesByPRNAndName", null);
                     response = req.CreateResponse(HttpStatusCode.BadRequest, ResponseHelper.ErrorMessage("Invalid PRN argument"));
                 else {
                     // Get data
-                    results = new VenueStorage().GetByPRN(parsed, log);
-                    log.LogInformation($"GetVenuesByPRN returning { results.LongCount() } venues");
+                    results = new VenueStorage().GetByPRN(parsed, log)
+                                                .Where(p => p.VENUE_NAME == ProviderName);
 
                     // Return results
                     response = req.CreateResponse(results.Any() ? HttpStatusCode.OK : HttpStatusCode.NoContent);
