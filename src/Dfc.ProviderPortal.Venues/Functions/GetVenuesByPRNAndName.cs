@@ -34,14 +34,14 @@ namespace Dfc.ProviderPortal.Venues
             try {
                 // Get passed argument (from query if present, if from JSON posted in body if not)
                 log.LogInformation($"GetVenuesByPRNAndName starting");
-                string PRN = req.RequestUri.ParseQueryString()["prn"]?.ToString()
-                                ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.PRN;
-                string ProviderName = req.RequestUri.ParseQueryString()["Name"]?.ToString()
-                                ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.ProviderName;
+                dynamic args = await (dynamic)req.Content.ReadAsAsync<object>();
+                string PRN = req.RequestUri.ParseQueryString()["prn"]?.ToString() ?? args?.PRN;
+                string name = req.RequestUri.ParseQueryString()["name"]?.ToString() ?? args?.Name;
+
                 if (PRN == null)
                     //throw new FunctionException("Missing PRN argument", "GetVenuesByPRNAndName", null);
                     response = req.CreateResponse(HttpStatusCode.BadRequest, ResponseHelper.ErrorMessage("Missing PRN argument"));
-                else if (ProviderName == null)
+                else if (name == null)
                     //throw new FunctionException("Missing ProviderName argument", "GetVenuesByPRNAndName", null);
                     response = req.CreateResponse(HttpStatusCode.BadRequest, ResponseHelper.ErrorMessage("Missing Name argument"));
                 else if (!int.TryParse(PRN, out int parsed))
@@ -50,7 +50,7 @@ namespace Dfc.ProviderPortal.Venues
                 else {
                     // Get data
                     results = new VenueStorage().GetByPRN(parsed, log)
-                                                .Where(p => p.VENUE_NAME == ProviderName);
+                                                .Where(p => p.VENUE_NAME == name);
 
                     // Return results
                     response = req.CreateResponse(results.Any() ? HttpStatusCode.OK : HttpStatusCode.NoContent);
