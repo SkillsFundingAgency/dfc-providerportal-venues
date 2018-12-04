@@ -74,7 +74,8 @@ namespace Dfc.ProviderPortal.Venues.Storage
         {
             // Add venue doc to collection
             try {
-                venue.id = Guid.NewGuid();
+                if (venue.id == Guid.Empty)
+                    venue.id = Guid.NewGuid();
                 return await docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
                                                            venue);
             } catch (Exception ex) {
