@@ -1,0 +1,1 @@
+<Playlist Version="1.0"><Add Test="Dfc.ProviderPortal.Venues.Tests.VenuesTests.AddVenue_Run" /><Add Test="Dfc.ProviderPortal.Venues.Tests.VenuesTests.GetVenueById_NewlyAdded" /></Playlist>

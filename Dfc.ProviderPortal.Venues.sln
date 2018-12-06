@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.ProviderPortal.Venues.A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.ProviderPortal.Venues.Models", "src\Dfc.ProviderPortal.Venues.Models\Dfc.ProviderPortal.Venues.Models.csproj", "{4BD6AC97-CBBE-498E-9584-B0FEAFC96489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfc.ProviderPortal.Venues", "src\Dfc.ProviderPortal.Venues\Dfc.ProviderPortal.Venues.csproj", "{AE2A6C01-B2B9-4C00-B1CF-092AED97CCAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.ProviderPortal.Venues", "src\Dfc.ProviderPortal.Venues\Dfc.ProviderPortal.Venues.csproj", "{AE2A6C01-B2B9-4C00-B1CF-092AED97CCAE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.ProviderPortal.Venues.Tests", "src\DFC.ProviderPortal.Venues.Tests\Dfc.ProviderPortal.Venues.Tests.csproj", "{01E596BD-AEAC-4005-BE26-6714B1106E2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{AE2A6C01-B2B9-4C00-B1CF-092AED97CCAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE2A6C01-B2B9-4C00-B1CF-092AED97CCAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE2A6C01-B2B9-4C00-B1CF-092AED97CCAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01E596BD-AEAC-4005-BE26-6714B1106E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01E596BD-AEAC-4005-BE26-6714B1106E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01E596BD-AEAC-4005-BE26-6714B1106E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01E596BD-AEAC-4005-BE26-6714B1106E2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
