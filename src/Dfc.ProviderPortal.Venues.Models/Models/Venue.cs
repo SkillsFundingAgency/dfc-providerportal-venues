@@ -33,5 +33,12 @@ namespace Dfc.ProviderPortal.Venues.Models
         //public string SYS_DATA_SOURCE { get; set; }
         //public string DATE_UPDATED_COPY_OVER { get; set; }
         //public string DATE_CREATED_COPY_OVER { get; set; }
+
+        public int status { get; set; }
+        public DateTime DateUpdated { get; set; }
+        public string UpdatedBy { get; set; }
+        public decimal Lattitude { get; set; }
+        public decimal Longitude { get; set; }
+
     }
 }

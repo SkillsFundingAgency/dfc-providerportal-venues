@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.ProviderPortal.Venues.M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.ProviderPortal.Venues", "src\Dfc.ProviderPortal.Venues\Dfc.ProviderPortal.Venues.csproj", "{AE2A6C01-B2B9-4C00-B1CF-092AED97CCAE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.ProviderPortal.Venues.Tests", "src\DFC.ProviderPortal.Venues.Tests\Dfc.ProviderPortal.Venues.Tests.csproj", "{01E596BD-AEAC-4005-BE26-6714B1106E2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.ProviderPortal.Venues.Tests", "tests\DFC.ProviderPortal.Venues.Tests\Dfc.ProviderPortal.Venues.Tests.csproj", "{01E596BD-AEAC-4005-BE26-6714B1106E2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

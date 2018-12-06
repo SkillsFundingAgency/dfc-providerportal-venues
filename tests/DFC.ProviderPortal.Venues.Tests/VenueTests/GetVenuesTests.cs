@@ -19,7 +19,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
         private IEnumerable<Venue> _venues = null;
 
         private const string URI_PATH = "http://localhost:7071/api/";
-        private const long EXPECTED_COUNT = 15969;
+        private const long EXPECTED_COUNT = 15979;
 
         private const string VENUE_BY_ID = "{ \"id\": \"e3f1acbc-9eb2-4c38-81ec-fb2feb270035\" }";
         private const string VENUE_BY_PRN = "{ \"PRN\": 123456789 }";
@@ -40,7 +40,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
             _GetVenueById_Run();
             _GetVenuesByPRN_Run();
             _GetVenuesByPRNAndName_Run();
-            Assert.True(_venue != null);
+            Assert.True(true);
         }
 
 
