@@ -55,7 +55,11 @@ namespace Dfc.ProviderPortal.Venues
                                 //SEARCH_REGION = dr.SafeGetString("SEARCH_REGION"),
                                 //SYS_DATA_SOURCE = dr.SafeGetString("SYS_DATA_SOURCE"),
                                 //DATE_UPDATED_COPY_OVER = dr.SafeGetString("DATE_UPDATED_COPY_OVER"),
-                                //DATE_CREATED_COPY_OVER = dr.SafeGetString("DATE_CREATED_COPY_OVER")
+                                //DATE_CREATED_COPY_OVER = dr.SafeGetString("DATE_CREATED_COPY_OVER"),
+
+                                Status = VenueStatus.Imported,
+                                DateUpdated = DateTime.Now,
+                                UpdatedBy = dr.SafeGetString("UPDATED_BY")
                             }
                         );
                         i++;

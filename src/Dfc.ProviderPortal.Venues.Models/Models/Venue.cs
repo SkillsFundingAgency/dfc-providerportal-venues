@@ -4,6 +4,13 @@ using System;
 
 namespace Dfc.ProviderPortal.Venues.Models
 {
+    public enum VenueStatus
+    {
+        Imported = 0,
+        Active = 1,
+        Uknown = 99
+    }
+
     public class Venue
     {
         public Guid id { get; set; }
@@ -34,7 +41,7 @@ namespace Dfc.ProviderPortal.Venues.Models
         //public string DATE_UPDATED_COPY_OVER { get; set; }
         //public string DATE_CREATED_COPY_OVER { get; set; }
 
-        public int status { get; set; }
+        public VenueStatus Status { get; set; }
         public DateTime DateUpdated { get; set; }
         public string UpdatedBy { get; set; }
         public decimal Lattitude { get; set; }
