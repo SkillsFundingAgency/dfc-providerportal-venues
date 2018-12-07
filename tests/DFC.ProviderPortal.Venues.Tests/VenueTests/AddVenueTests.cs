@@ -37,14 +37,14 @@ namespace Dfc.ProviderPortal.Venues.Tests
         }
 
 
-        [Fact]
-        public void RunTests()
-        {
-            _AddVenue_Run();
-            _GetVenueById_NewlyAdded();
-            _GetAllVenues_CountAfterAdding();
-            Assert.True(_venue != null);
-        }
+        //[Fact]
+        //public void RunTests()
+        //{
+        //    _AddVenue_Run();
+        //    _GetVenueById_NewlyAdded();
+        //    _GetAllVenues_CountAfterAdding();
+        //    Assert.True(_venue != null);
+        //}
 
 
         
@@ -58,25 +58,25 @@ namespace Dfc.ProviderPortal.Venues.Tests
             Assert.True(_venue != null);
         }
 
-        [Fact]
-        private void _GetVenueById_NewlyAdded()
-        {
-            System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetVenueById"),
-                                                                             string.Format(ADDED_VENUE, _venue.id.ToString()));
-            Task<HttpResponseMessage> task = GetVenueById.Run(rm, new LogHelper((ILogger)null));
-            _venue = TestHelper.GetAFReturnedObject<Venue>(task);
+        //[Fact]
+        //private void _GetVenueById_NewlyAdded()
+        //{
+        //    System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetVenueById"),
+        //                                                                     string.Format(ADDED_VENUE, _venue.id.ToString()));
+        //    Task<HttpResponseMessage> task = GetVenueById.Run(rm, new LogHelper((ILogger)null));
+        //    _venue = TestHelper.GetAFReturnedObject<Venue>(task);
 
-            Assert.True(_venue != null);
-        }
+        //    Assert.True(_venue != null);
+        //}
 
-        [Fact]
-        public void _GetAllVenues_CountAfterAdding()
-        {
-            System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetAllVenues"), "");
-            Task<HttpResponseMessage> task = GetAllVenues.Run(rm, new LogHelper((ILogger)null));
-            IEnumerable<Venue> venues = TestHelper.GetAFReturnedObjects<Venue>(task);
+        //[Fact]
+        //public void _GetAllVenues_CountAfterAdding()
+        //{
+        //    System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetAllVenues"), "");
+        //    Task<HttpResponseMessage> task = GetAllVenues.Run(rm, new LogHelper((ILogger)null));
+        //    IEnumerable<Venue> venues = TestHelper.GetAFReturnedObjects<Venue>(task);
 
-            Assert.True(venues.LongCount() == EXPECTED_COUNT);
-        }
+        //    Assert.True(venues.LongCount() == EXPECTED_COUNT);
+        //}
     }
 }

@@ -19,7 +19,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
             Environment.SetEnvironmentVariable("APPSETTING_SQLConnectionString", "Server=localhost;Database=SFACourseDirectory;UID=ian;PWD=ian;");
             Environment.SetEnvironmentVariable("APPSETTING_CosmosDBStorageURI", "https://dfc-dev-prov-cdb.documents.azure.com/");
             Environment.SetEnvironmentVariable("APPSETTING_CosmosDBPrimaryKey", "5g8JmODSAlrkJJsgtNB5XvX2KX54gBHoK8ij8wYaFiua6Z6O03J1dzS92LUKI8eZGkgOLQoMRBfebwaiXx5AHg==");
-            Environment.SetEnvironmentVariable("APPSETTING_CosmosDBDatabase", "ukrlp");
+            Environment.SetEnvironmentVariable("APPSETTING_CosmosDBDatabase", "providerportal");
             Environment.SetEnvironmentVariable("APPSETTING_CollectionName", "venues");
         }
 
