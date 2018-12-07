@@ -19,7 +19,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
         private Venue _venue = null;
 
         private const string URI_PATH = "http://localhost:7071/api/";
-        private const long EXPECTED_COUNT = 15970;
+        //private const long EXPECTED_COUNT = 15970;
 
         private const string VENUE_TO_ADD = "{" +
                                             "  \"UKPRN\": \"123456789\"," +
@@ -28,7 +28,10 @@ namespace Dfc.ProviderPortal.Venues.Tests
                                             "  \"ADDRESS_2\": \"Learnsville\"," +
                                             "  \"TOWN\": \"Birmingham\"," +
                                             "  \"COUNTY\": \"West Midlands\"," +
-                                            "  \"POSTCODE\": \"B12 3YZ\"" +
+                                            "  \"POSTCODE\": \"B12 3YZ\"," +
+                                            "  \"Status\": 0," +
+                                            "  \"DateUpdated\": \"2018-12-07T09:42:39.4909052+00:00\"," +
+                                            "  \"UpdatedBy\": \"Ian\"" +
                                             "}";
         private const string ADDED_VENUE = "{{ \"id\": \"{0}\" }}";
 
