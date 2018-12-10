@@ -84,6 +84,50 @@ namespace Dfc.ProviderPortal.Venues.Storage
         }
 
         /// <summary>
+        /// Updates a single venue document in the collection
+        /// </summary>
+        /// <param name="venue">The Venue to update</param>
+        /// <param name="log">ILogger for logging info/errors</param>
+        public async Task<ResourceResponse<Document>> UpdateDocAsync(Venue venue, ILogger log)
+        {
+            try {
+                // Get matching venue by Id from the collection
+                log.LogInformation($"Getting venues from collection with Id {venue?.id}");
+                Document updated = docClient.CreateDocumentQuery(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
+                                .Where(u => u.Id == venue.id.ToString())
+                                .AsEnumerable()
+                                .FirstOrDefault();
+
+                if (updated == null)
+                    return null;
+
+                if (!string.IsNullOrWhiteSpace(venue.ADDRESS_1))
+                    updated.SetPropertyValue("ADDRESS_1", venue.ADDRESS_1);
+                if (!string.IsNullOrWhiteSpace(venue.ADDRESS_2))
+                    updated.SetPropertyValue("ADDRESS_2", venue.ADDRESS_2);
+                if (!string.IsNullOrWhiteSpace(venue.COUNTY))
+                    updated.SetPropertyValue("COUNTY", venue.COUNTY);
+                if (!string.IsNullOrWhiteSpace(venue.POSTCODE))
+                    updated.SetPropertyValue("POSTCODE", venue.POSTCODE);
+                if (!string.IsNullOrWhiteSpace(venue.TOWN))
+                    updated.SetPropertyValue("TOWN", venue.TOWN);
+                if (!string.IsNullOrWhiteSpace(venue.VENUE_NAME))
+                    updated.SetPropertyValue("VENUE_NAME", venue.VENUE_NAME);
+                if (!string.IsNullOrWhiteSpace(venue.UpdatedBy))
+                    updated.SetPropertyValue("UpdatedBy", venue.UpdatedBy);
+                updated.SetPropertyValue("Status", (int)venue.Status);
+                updated.SetPropertyValue("DateUpdated", DateTime.Now);
+
+                //return await docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
+                //                                           venue);
+                return await docClient.UpsertDocumentAsync(Collection.SelfLink, updated); //,
+                                                                                      //new RequestOptions { PartitionKey = new PartitionKey(p.UnitedKingdomProviderReferenceNumber) });
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        /// <summary>
         /// Gets all documents from the collection and returns the data as Venue objects
         /// </summary>
         /// <param name="log">ILogger for logging info/errors</param>
@@ -158,7 +202,7 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// <param name="log">Ilogger for logging info/errors</param>
         public Venue GetById(Guid id, ILogger log)
         {
-            // Get matching venue by PRN from the collection
+            // Get matching venue by id from the collection
             log.LogInformation($"Getting venues from collection with Id {id}");
             return docClient.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
                             .Where(v => v.id == id)
