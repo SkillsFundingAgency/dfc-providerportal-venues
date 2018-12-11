@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\Ian\source\repos\dfc-providerportal-venues\src\Dfc.ProviderPortal.Venues.API\Dfc.ProviderPortal.Venues.API.xml</DocumentationFile>
+    <DocumentationFile>Dfc.ProviderPortal.Venues.API.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
