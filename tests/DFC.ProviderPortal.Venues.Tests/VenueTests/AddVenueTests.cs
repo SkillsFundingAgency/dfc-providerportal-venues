@@ -51,15 +51,15 @@ namespace Dfc.ProviderPortal.Venues.Tests
 
 
         
-        [Fact]
-        private void _AddVenue_Run()
-        {
-            System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "AddVenue"), VENUE_TO_ADD);
-            Task<HttpResponseMessage> task = AddVenue.Run(rm, new LogHelper((ILogger)null));
-            _venue = TestHelper.GetAFReturnedObject<Venue>(task);
+        //[Fact]
+        //private void _AddVenue_Run()
+        //{
+        //    System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "AddVenue"), VENUE_TO_ADD);
+        //    Task<HttpResponseMessage> task = AddVenue.Run(rm, new LogHelper((ILogger)null));
+        //    _venue = TestHelper.GetAFReturnedObject<Venue>(task);
 
-            Assert.True(_venue != null);
-        }
+        //    Assert.True(_venue != null);
+        //}
 
         //[Fact]
         //private void _GetVenueById_NewlyAdded()

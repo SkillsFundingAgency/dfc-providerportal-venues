@@ -49,14 +49,14 @@ namespace Dfc.ProviderPortal.Venues.Tests
 
 
 
-        [Fact]
-        private void _UpdateVenue_Run()
-        {
-            System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "UpdateVenueById"), VENUE_TO_UPDATE);
-            Task<HttpResponseMessage> task = UpdateVenueById.Run(rm, new LogHelper((ILogger)null));
-            _venue = TestHelper.GetAFReturnedObject<Venue>(task);
+        //[Fact]
+        //private void _UpdateVenue_Run()
+        //{
+        //    System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "UpdateVenueById"), VENUE_TO_UPDATE);
+        //    Task<HttpResponseMessage> task = UpdateVenueById.Run(rm, new LogHelper((ILogger)null));
+        //    _venue = TestHelper.GetAFReturnedObject<Venue>(task);
 
-            Assert.True(_venue != null);
-        }
+        //    Assert.True(_venue != null);
+        //}
     }
 }

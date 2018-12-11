@@ -46,37 +46,37 @@ namespace Dfc.ProviderPortal.Venues.Tests
 
 
 
-        [Fact]
-        public void _GetAllVenues_ReturnsResults()
-        {
-            System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetAllVenues"), "");
-            Task<HttpResponseMessage> task = GetAllVenues.Run(rm, new LogHelper((ILogger)null));
+        //[Fact]
+        //public void _GetAllVenues_ReturnsResults()
+        //{
+        //    System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetAllVenues"), "");
+        //    Task<HttpResponseMessage> task = GetAllVenues.Run(rm, new LogHelper((ILogger)null));
 
-            _venues = TestHelper.GetAFReturnedObjects<Venue>(task);
-            Assert.True(_venues.Any());
-        }
+        //    _venues = TestHelper.GetAFReturnedObjects<Venue>(task);
+        //    Assert.True(_venues.Any());
+        //}
 
-        [Fact]
-        public void _GetVenuesByPRN_Run()
-        {
-            System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetVenueById"),
-                                                                             VENUE_BY_PRN);
-            Task<HttpResponseMessage> task = GetVenuesByPRN.Run(rm, new LogHelper((ILogger)null));
-            _venues = TestHelper.GetAFReturnedObjects<Venue>(task);
+        //[Fact]
+        //public void _GetVenuesByPRN_Run()
+        //{
+        //    System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetVenueById"),
+        //                                                                     VENUE_BY_PRN);
+        //    Task<HttpResponseMessage> task = GetVenuesByPRN.Run(rm, new LogHelper((ILogger)null));
+        //    _venues = TestHelper.GetAFReturnedObjects<Venue>(task);
 
-            Assert.True(_venues.Any());
-        }
+        //    Assert.True(_venues.Any());
+        //}
 
-        [Fact]
-        public void _GetVenuesByPRNAndName_Run()
-        {
-            System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetVenueById"),
-                                                                             VENUE_BY_PRN_AND_NAME);
-            Task<HttpResponseMessage> task = GetVenuesByPRNAndName.Run(rm, new LogHelper((ILogger)null));
-            _venues = TestHelper.GetAFReturnedObjects<Venue>(task);
+        //[Fact]
+        //public void _GetVenuesByPRNAndName_Run()
+        //{
+        //    System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetVenueById"),
+        //                                                                     VENUE_BY_PRN_AND_NAME);
+        //    Task<HttpResponseMessage> task = GetVenuesByPRNAndName.Run(rm, new LogHelper((ILogger)null));
+        //    _venues = TestHelper.GetAFReturnedObjects<Venue>(task);
 
-            Assert.True(_venues.Any());
-        }
+        //    Assert.True(_venues.Any());
+        //}
 
         //[Fact]
         //public void _GetAllVenues_ExpectedCount()
@@ -84,15 +84,15 @@ namespace Dfc.ProviderPortal.Venues.Tests
         //    Assert.True(_venues.LongCount() == EXPECTED_COUNT);
         //}
 
-        [Fact]
-        public void _GetVenueById_Run()
-        {
-            System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetVenueById"),
-                                                                             VENUE_BY_ID);
-            Task<HttpResponseMessage> task = GetVenueById.Run(rm, new LogHelper((ILogger)null));
-            Venue venue = TestHelper.GetAFReturnedObject<Venue>(task);
+        //[Fact]
+        //public void _GetVenueById_Run()
+        //{
+        //    System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetVenueById"),
+        //                                                                     VENUE_BY_ID);
+        //    Task<HttpResponseMessage> task = GetVenueById.Run(rm, new LogHelper((ILogger)null));
+        //    Venue venue = TestHelper.GetAFReturnedObject<Venue>(task);
 
-            Assert.True(venue != null);
-        }
+        //    Assert.True(venue != null);
+        //}
     }
 }
