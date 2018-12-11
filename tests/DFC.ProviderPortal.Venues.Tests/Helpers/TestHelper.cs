@@ -18,7 +18,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
             // Add environment variables needed to test Azure Functions here (launchSettings.json doesn't get processed by test projects)
             Environment.SetEnvironmentVariable("APPSETTING_SQLConnectionString", "Server=defaulttest;Database=defaulttest;UID=defaulttest;PWD=defaulttest;");
             Environment.SetEnvironmentVariable("APPSETTING_CosmosDBStorageURI", "https://defaulttest.azure.com/");
-            Environment.SetEnvironmentVariable("APPSETTING_CosmosDBPrimaryKey", "defaulttest");
+            Environment.SetEnvironmentVariable("APPSETTING_CosmosDBPrimaryKey", "93036169611353199502");
             Environment.SetEnvironmentVariable("APPSETTING_CosmosDBDatabase", "defaulttest");
             Environment.SetEnvironmentVariable("APPSETTING_CollectionName", "defaulttest");
         }
