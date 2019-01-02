@@ -22,6 +22,12 @@
     },
     "cosmosDBkey": {
       "value": "not-a-real-key"
+    },
+    "cosmosDBdatabase": {
+      "value": "mydb"
+    },
+    "cosmosDBcollection": {
+      "value": "mycoll"
     }
   }
 }
