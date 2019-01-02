@@ -43,6 +43,18 @@
       "metadata": {
         "description": "Cosmos DB access key"
       }
+     },
+    "cosmosDBdatabase": {
+      "type": "string",
+      "metadata": {
+        "description": "Cosmos DB database name"
+      }
+    },
+    "cosmosDBcollection": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Cosmos DB collection"
+      }
     }
   },
   "variables": {
@@ -117,7 +129,7 @@
               },
               {
                 "name": "CosmosDBDatabase",
-                "value": "ukrlp"
+                "value": "[parameters('cosmosDBdatabase')]"
               },
               {
                 "name": "SQLConnectionString",
@@ -125,7 +137,7 @@
               },
               {
                 "name": "CollectionName",
-                "value": "venues"
+                "value": "[parameters('cosmosDBcollection')]"
               }
             ]
           }
