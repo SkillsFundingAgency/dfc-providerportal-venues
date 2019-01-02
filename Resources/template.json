@@ -51,7 +51,7 @@
       }
     },
     "cosmosDBcollection": {
-      "type": "securestring",
+      "type": "string",
       "metadata": {
         "description": "Cosmos DB collection"
       }
