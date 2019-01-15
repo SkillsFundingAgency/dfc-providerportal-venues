@@ -84,6 +84,19 @@ namespace Dfc.ProviderPortal.Venues.API.Controllers
         }
 
         /// <summary>
+        /// Venue (if any) with matching id, for example:
+        /// GET api/venues/3010917
+        /// </summary>
+        /// <param name="venueId">VenueId value</param>
+        /// <returns>Matching venue, if any</returns>
+        [HttpGet("{venueId}", Name = "VenueGetByVenueId")]
+        public ActionResult<Venue> Get(int venueId)
+        {
+            Venue venue = new VenueStorage().GetByVenueId(venueId, _log);
+            return new ActionResult<Venue>(venue) ?? NotFound();
+        }
+
+        /// <summary>
         /// Create new venue via post
         /// POST api/venues
         /// </summary>
