@@ -211,6 +211,21 @@ namespace Dfc.ProviderPortal.Venues.Storage
         }
 
         /// <summary>
+        /// Gets document with matching VenueId from the collection and returns the data as Venue object
+        /// </summary>
+        /// <param name="venueId">VenueId to search by</param>
+        /// <param name="log">Ilogger for logging info/errors</param>
+        public Venue GetByVenueId(int venueId, ILogger log)
+        {
+            // Get matching venue by id from the collection
+            log.LogInformation($"Getting venue from collection with VenueId {venueId}");
+            return docClient.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
+                            .Where(v => v.VENUE_ID == venueId)
+                            .AsEnumerable()
+                            .FirstOrDefault();
+        }
+
+        /// <summary>
         /// Gets all documents with matching PRN from the collection and returns the data as Venue objects
         /// </summary>
         /// <param name="PRN">UKPRN to search by</param>

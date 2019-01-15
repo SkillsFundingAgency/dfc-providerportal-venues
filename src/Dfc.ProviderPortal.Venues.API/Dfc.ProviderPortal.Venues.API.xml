@@ -59,6 +59,14 @@
             <param name="id">GUID id value</param>
             <returns>Matching venue, if any</returns>
         </member>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.Get(System.Int32)">
+            <summary>
+            Venue (if any) with matching id, for example:
+            GET api/venues/3010917
+            </summary>
+            <param name="venueId">VenueId value</param>
+            <returns>Matching venue, if any</returns>
+        </member>
         <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.Post(Dfc.ProviderPortal.Venues.Models.Venue)">
             <summary>
             Create new venue via post
