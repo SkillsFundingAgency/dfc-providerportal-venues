@@ -27,7 +27,7 @@ namespace Dfc.ProviderPortal.Venues.Functions
                 // Get passed argument (from query if present, if from JSON posted in body if not)
                 log.LogInformation($"GetVenueByVenueId starting");
                 string venueId = req.RequestUri.ParseQueryString()["venueId"]?.ToString()
-                                ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.id;
+                                ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.venueId;
                 if (string.IsNullOrEmpty(venueId))
                 {
                     log.LogInformation($"GetVenueByVenueId has missing venueId argument");
