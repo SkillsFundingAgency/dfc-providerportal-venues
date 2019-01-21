@@ -44,7 +44,7 @@ namespace Dfc.ProviderPortal.Venues.Models
         public VenueStatus Status { get; set; }
         public DateTime DateUpdated { get; set; }
         public string UpdatedBy { get; set; }
-        public decimal Lattitude { get; set; }
+        public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
 
     }
