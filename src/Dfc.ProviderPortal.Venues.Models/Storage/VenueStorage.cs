@@ -117,6 +117,9 @@ namespace Dfc.ProviderPortal.Venues.Storage
                     updated.SetPropertyValue("UpdatedBy", venue.UpdatedBy);
                 updated.SetPropertyValue("Status", (int)venue.Status);
                 updated.SetPropertyValue("DateUpdated", DateTime.Now);
+                updated.SetPropertyValue("Latitude", venue.Latitude);
+                updated.SetPropertyValue("Longitude", venue.Longitude);
+
 
                 //return await docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
                 //                                           venue);
