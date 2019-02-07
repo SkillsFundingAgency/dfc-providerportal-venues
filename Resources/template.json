@@ -35,36 +35,36 @@
     "cosmosDBfqdn": {
       "type": "string",
       "metadata": {
-        "description": "Cosmos DB account name in the format https://dfc-xxx-xxx-cdb.documents.azure.com/"
+        "description": "Cosmos DB account name in the format https://dfc-xxx-xxx-cdb.documents.azure.com/ for app settings"
       }
     },
     "cosmosDBkey": {
       "type": "securestring",
       "metadata": {
-        "description": "Cosmos DB access key"
+        "description": "Cosmos DB access key for app settings"
       }
-     },
+    },
     "cosmosDBdatabase": {
       "type": "string",
       "metadata": {
-        "description": "Cosmos DB database name"
+        "description": "Cosmos DB database name for app settings"
       }
     },
     "cosmosDBcollection": {
       "type": "string",
       "metadata": {
-        "description": "Cosmos DB collection"
+        "description": "Cosmos DB collection name for app settings"
       }
     }
   },
   "variables": {
-    "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
+    "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/dfc-devops/master/ArmTemplates/",
     "functionAppName": "[concat(parameters('functionAppPrefix'),'-fa')]",
     "appInsightName": "[concat(parameters('functionAppPrefix'),'-ai')]"
   },
   "resources": [{
       "apiVersion": "2017-05-10",
-      "name": "ppukrlpAppInsights",
+      "name": "ppvenueAppInsights",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
@@ -84,19 +84,19 @@
     },
     {
       "apiVersion": "2017-05-10",
-      "name": "ppukrlpAppService",
+      "name": "ppvenueAppService",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
-        "ppukrlpAppInsights"
+        "ppvenueAppInsights"
       ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(variables('deploymentUrlBase'),'function-app.json')]",
+          "uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "functionAppName": {
+          "appServiceName": {
             "value": "[variables('functionAppName')]"
           },
           "appServicePlanName": {
@@ -105,11 +105,14 @@
           "appServicePlanResourceGroup": {
             "value": "[parameters('appServicePlanResourceGroup')]"
           },
-          "functionAppAppSettings": {
+          "appServiceType": {
+            "value": "functionapp"
+          },
+          "appServiceAppSettings": {
             "value": [
               {
                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                "value": "[reference('ppukrlpAppInsights').outputs.InstrumentationKey.value]"
+                "value": "[reference('ppvenueAppInsights').outputs.InstrumentationKey.value]"
               },
               {
                 "name": "FUNCTIONS_EXTENSION_VERSION",
@@ -140,6 +143,9 @@
                 "value": "[parameters('cosmosDBcollection')]"
               }
             ]
+          },
+          "deployStagingSlot": {
+            "value": false
           }
         }
       }
@@ -156,7 +162,7 @@
     },
     "appInsightInstrumentationKey": {
       "type": "string",
-      "value": "[reference('ppukrlpAppInsights').outputs.InstrumentationKey.value]"
+      "value": "[reference('ppvenueAppInsights').outputs.InstrumentationKey.value]"
     }
   }
 }
