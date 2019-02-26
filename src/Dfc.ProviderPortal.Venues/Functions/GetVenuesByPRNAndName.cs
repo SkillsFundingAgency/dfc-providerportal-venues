@@ -50,9 +50,7 @@ namespace Dfc.ProviderPortal.Venues
                 else {
                     // Get data
                     results = new VenueStorage().GetByPRN(parsed, log)
-                                              // JIRA DFC-5942 - Make search case insensitive
-                                              //.Where(p => p.VENUE_NAME == name);
-                                                .Where(p => p.VENUE_NAME.ToLower() == name.ToLower());
+                                                .Where(p => p.VENUE_NAME.ToLower().Contains(name.ToLower()));
 
 
                     // Return results
