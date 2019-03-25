@@ -100,7 +100,6 @@ namespace Dfc.ProviderPortal.Venues.Storage
 
                 if (updated == null)
                     return null;
-
                 if (!string.IsNullOrWhiteSpace(venue.ADDRESS_1))
                     updated.SetPropertyValue("ADDRESS_1", venue.ADDRESS_1);
                 if (!string.IsNullOrWhiteSpace(venue.ADDRESS_2))
@@ -115,16 +114,13 @@ namespace Dfc.ProviderPortal.Venues.Storage
                     updated.SetPropertyValue("VENUE_NAME", venue.VENUE_NAME);
                 if (!string.IsNullOrWhiteSpace(venue.UpdatedBy))
                     updated.SetPropertyValue("UpdatedBy", venue.UpdatedBy);
+
                 updated.SetPropertyValue("Status", (int)venue.Status);
                 updated.SetPropertyValue("DateUpdated", DateTime.Now);
                 updated.SetPropertyValue("Latitude", venue.Latitude);
                 updated.SetPropertyValue("Longitude", venue.Longitude);
 
-
-                //return await docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
-                //                                           venue);
-                return await docClient.UpsertDocumentAsync(Collection.SelfLink, updated); //,
-                                                                                      //new RequestOptions { PartitionKey = new PartitionKey(p.UnitedKingdomProviderReferenceNumber) });
+                return await docClient.ReplaceDocumentAsync(Collection.SelfLink, updated);
             } catch (Exception ex) {
                 throw ex;
             }
