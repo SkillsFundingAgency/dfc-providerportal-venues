@@ -100,20 +100,14 @@ namespace Dfc.ProviderPortal.Venues.Storage
 
                 if (updated == null)
                     return null;
-                if (!string.IsNullOrWhiteSpace(venue.ADDRESS_1))
-                    updated.SetPropertyValue("ADDRESS_1", venue.ADDRESS_1);
-                if (!string.IsNullOrWhiteSpace(venue.ADDRESS_2))
-                    updated.SetPropertyValue("ADDRESS_2", venue.ADDRESS_2);
-                if (!string.IsNullOrWhiteSpace(venue.COUNTY))
-                    updated.SetPropertyValue("COUNTY", venue.COUNTY);
-                if (!string.IsNullOrWhiteSpace(venue.POSTCODE))
-                    updated.SetPropertyValue("POSTCODE", venue.POSTCODE);
-                if (!string.IsNullOrWhiteSpace(venue.TOWN))
-                    updated.SetPropertyValue("TOWN", venue.TOWN);
-                if (!string.IsNullOrWhiteSpace(venue.VENUE_NAME))
-                    updated.SetPropertyValue("VENUE_NAME", venue.VENUE_NAME);
-                if (!string.IsNullOrWhiteSpace(venue.UpdatedBy))
-                    updated.SetPropertyValue("UpdatedBy", venue.UpdatedBy);
+
+                updated.SetPropertyValue("ADDRESS_1", venue.ADDRESS_1);
+                updated.SetPropertyValue("ADDRESS_2", venue.ADDRESS_2);
+                updated.SetPropertyValue("COUNTY", venue.COUNTY);
+                updated.SetPropertyValue("POSTCODE", venue.POSTCODE);
+                updated.SetPropertyValue("TOWN", venue.TOWN);
+                updated.SetPropertyValue("VENUE_NAME", venue.VENUE_NAME);
+                updated.SetPropertyValue("UpdatedBy", venue.UpdatedBy);
 
                 updated.SetPropertyValue("Status", (int)venue.Status);
                 updated.SetPropertyValue("DateUpdated", DateTime.Now);
