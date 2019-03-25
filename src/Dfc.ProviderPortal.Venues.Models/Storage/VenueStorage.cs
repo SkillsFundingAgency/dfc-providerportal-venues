@@ -120,7 +120,7 @@ namespace Dfc.ProviderPortal.Venues.Storage
                 updated.SetPropertyValue("Latitude", venue.Latitude);
                 updated.SetPropertyValue("Longitude", venue.Longitude);
 
-                return await docClient.ReplaceDocumentAsync(Collection.SelfLink, updated);
+                return await docClient.ReplaceDocumentAsync(updated);
             } catch (Exception ex) {
                 throw ex;
             }
