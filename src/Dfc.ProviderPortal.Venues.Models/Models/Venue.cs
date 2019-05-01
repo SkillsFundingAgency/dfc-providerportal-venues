@@ -7,7 +7,8 @@ namespace Dfc.ProviderPortal.Venues.Models
     public enum VenueStatus
     {
         Imported = 0,
-        Active = 1,
+        Live = 1,
+        Deleted = 2,
         Uknown = 99
     }
 
