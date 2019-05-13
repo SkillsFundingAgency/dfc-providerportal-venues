@@ -6,9 +6,10 @@ namespace Dfc.ProviderPortal.Venues.Models
 {
     public enum VenueStatus
     {
-        Imported = 0,
+        Undefined = 0,
         Live = 1,
         Deleted = 2,
+        Pending = 3,
         Uknown = 99
     }
 
@@ -47,6 +48,12 @@ namespace Dfc.ProviderPortal.Venues.Models
         public string UpdatedBy { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+
+        // Apprenticeship related
+        public int? LocationId { get; set; }
+        public string Telephone { get; set; }
+        public string Email { get; set; }
+        public string Website { get; set; }
 
     }
 }

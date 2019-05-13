@@ -57,7 +57,7 @@ namespace Dfc.ProviderPortal.Venues
                                 //DATE_UPDATED_COPY_OVER = dr.SafeGetString("DATE_UPDATED_COPY_OVER"),
                                 //DATE_CREATED_COPY_OVER = dr.SafeGetString("DATE_CREATED_COPY_OVER"),
 
-                                Status = VenueStatus.Imported,
+                                Status = string.IsNullOrEmpty(dr.SafeGetString("POSTCODE")) ? VenueStatus.Pending : VenueStatus.Live,
                                 DateUpdated = DateTime.Now,
                                 UpdatedBy = dr.SafeGetString("UPDATED_BY")
                             }
