@@ -107,14 +107,18 @@ namespace Dfc.ProviderPortal.Venues.Storage
                 updated.SetPropertyValue("POSTCODE", venue.POSTCODE);
                 updated.SetPropertyValue("TOWN", venue.TOWN);
                 updated.SetPropertyValue("VENUE_NAME", venue.VENUE_NAME);
-                updated.SetPropertyValue("UpdatedBy", venue.UpdatedBy);
+                updated.SetPropertyValue("PHONE", venue.PHONE);
+                updated.SetPropertyValue("EMAIL", venue.EMAIL);
+                updated.SetPropertyValue("WEBSITE", venue.WEBSITE);
 
                 updated.SetPropertyValue("Status", (int)venue.Status);
                 updated.SetPropertyValue("DateUpdated", DateTime.Now);
                 updated.SetPropertyValue("Latitude", venue.Latitude);
                 updated.SetPropertyValue("Longitude", venue.Longitude);
+                updated.SetPropertyValue("UpdatedBy", venue.UpdatedBy);
 
                 return await docClient.ReplaceDocumentAsync(updated);
+
             } catch (Exception ex) {
                 throw ex;
             }
