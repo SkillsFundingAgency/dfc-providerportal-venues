@@ -29,7 +29,10 @@ namespace Dfc.ProviderPortal.Venues.Tests
                                             "  \"TOWN\": \"Birmingham\"," +
                                             "  \"COUNTY\": \"West Midlands\"," +
                                             "  \"POSTCODE\": \"B12 3YZ\"," +
-                                            "  \"Status\": 0," +
+                                            "  \"PHONE\": \"021 121 1212\"," +
+                                            "  \"EMAIL\": \"a@b.com\"," +
+                                            "  \"WEBSITE\": \"http://www.something.co.uk\"," +
+                                            "  \"Status\": 1," +
                                             "  \"DateUpdated\": \"2018-12-07T09:42:39.4909052+00:00\"," +
                                             "  \"UpdatedBy\": \"Ian\"" +
                                             "}";

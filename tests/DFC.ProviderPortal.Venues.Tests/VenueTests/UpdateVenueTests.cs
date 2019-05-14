@@ -29,6 +29,9 @@ namespace Dfc.ProviderPortal.Venues.Tests
                                                "  \"TOWN\": \"Manchester\"," +
                                                "  \"COUNTY\": \"Lancashire\"," +
                                                "  \"POSTCODE\": \"M23 4XY\"," +
+                                               "  \"PHONE\": \"021 121 1212\"," +
+                                               "  \"EMAIL\": \"a@b.com\"," +
+                                               "  \"WEBSITE\": \"http://www.something.co.uk\"," +
                                                "  \"Status\": 1," +
                                                "  \"DateUpdated\": \"2018-12-25T12:34:56.4909052+00:00\"," +
                                                "  \"UpdatedBy\": \"Someone\"" +
