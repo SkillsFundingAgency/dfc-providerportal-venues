@@ -107,9 +107,9 @@ namespace Dfc.ProviderPortal.Venues.Storage
                 updated.SetPropertyValue("POSTCODE", venue.POSTCODE);
                 updated.SetPropertyValue("TOWN", venue.TOWN);
                 updated.SetPropertyValue("VENUE_NAME", venue.VENUE_NAME);
-                updated.SetPropertyValue("PHONE", venue.PHONE);
-                updated.SetPropertyValue("EMAIL", venue.EMAIL);
-                updated.SetPropertyValue("WEBSITE", venue.WEBSITE);
+                //updated.SetPropertyValue("PHONE", venue.PHONE);
+                //updated.SetPropertyValue("EMAIL", venue.EMAIL);
+                //updated.SetPropertyValue("WEBSITE", venue.WEBSITE);
 
                 updated.SetPropertyValue("Status", (int)venue.Status);
                 updated.SetPropertyValue("DateUpdated", DateTime.Now);
