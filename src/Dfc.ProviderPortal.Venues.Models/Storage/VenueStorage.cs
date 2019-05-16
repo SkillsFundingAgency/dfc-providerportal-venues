@@ -44,10 +44,6 @@ namespace Dfc.ProviderPortal.Venues.Storage
                 // Insert each venue in turn as a document
                 foreach (Venue v in venues)
                 {
-                    // Add venue doc to collection
-                    //v.id = Guid.NewGuid();
-                    //Task<ResourceResponse<Document>> task = docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
-                    //                                                                      v);
                     Task<ResourceResponse<Document>> task = InsertDocAsync(v, log);
                     task.Wait();
                 }
@@ -214,10 +210,25 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// <param name="log">Ilogger for logging info/errors</param>
         public Venue GetByVenueId(int venueId, ILogger log)
         {
-            // Get matching venue by id from the collection
+            // Get matching venue by VenueId from the collection
             log.LogInformation($"Getting venue from collection with VenueId {venueId}");
             return docClient.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
                             .Where(v => v.VENUE_ID == venueId)
+                            .AsEnumerable()
+                            .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets document with matching LocationId from the collection and returns the data as Venue object
+        /// </summary>
+        /// <param name="locationId">LocationId to search by</param>
+        /// <param name="log">Ilogger for logging info/errors</param>
+        public Venue GetByLocationId(int locationId, ILogger log)
+        {
+            // Get matching venue by LocationId from the collection
+            log.LogInformation($"Getting venue from collection with LocationId {locationId}");
+            return docClient.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
+                            .Where(v => v.LocationId == locationId)
                             .AsEnumerable()
                             .FirstOrDefault();
         }
