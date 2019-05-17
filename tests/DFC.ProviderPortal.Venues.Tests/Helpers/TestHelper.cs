@@ -21,6 +21,9 @@ namespace Dfc.ProviderPortal.Venues.Tests
             Environment.SetEnvironmentVariable("APPSETTING_CosmosDBPrimaryKey", "93036169611353199502");
             Environment.SetEnvironmentVariable("APPSETTING_CosmosDBDatabase", "defaulttest");
             Environment.SetEnvironmentVariable("APPSETTING_CollectionName", "defaulttest");
+            Environment.SetEnvironmentVariable("APPSETTING_SearchService", "search-here");
+            Environment.SetEnvironmentVariable("APPSETTING_QueryKey", "password-goes-here");
+            Environment.SetEnvironmentVariable("APPSETTING_PostcodeIndex", "index");
         }
 
         /// <summary>
