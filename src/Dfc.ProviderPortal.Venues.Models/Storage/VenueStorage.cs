@@ -6,27 +6,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
+using Microsoft.Azure.Search;
+using Microsoft.Azure.Search.Models;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Dfc.ProviderPortal.Venues;
 using Dfc.ProviderPortal.Venues.Models;
-using Newtonsoft.Json;
+using Document = Microsoft.Azure.Documents.Document;
 
 
 namespace Dfc.ProviderPortal.Venues.Storage
 {
     public class VenueStorage
     {
+        public class Sequence
+        {
+            public int SequenceId { get; set; }
+        }
+
         /// <summary>
         /// CosmosDB client and collection
         /// </summary>
         static private DocumentClient docClient = StorageFactory.DocumentClient;
         static private DocumentCollection Collection = StorageFactory.DocumentCollection;
 
+        private static SearchServiceClient _queryService;
+        private static ISearchIndexClient _onspdIndex;
+
         /// <summary>
         /// Public constructor
         /// </summary>
-        public VenueStorage() { }
+        public VenueStorage()
+        {
+            _queryService = new SearchServiceClient(SettingsHelper.SearchService, new SearchCredentials(SettingsHelper.QueryKey));
+            _onspdIndex = _queryService?.Indexes?.GetClient(SettingsHelper.PostcodeIndex);
+
+        }
 
         /// <summary>
         /// Inserts passed objects as documents into CosmosDB collection
@@ -44,10 +61,6 @@ namespace Dfc.ProviderPortal.Venues.Storage
                 // Insert each venue in turn as a document
                 foreach (Venue v in venues)
                 {
-                    // Add venue doc to collection
-                    //v.id = Guid.NewGuid();
-                    //Task<ResourceResponse<Document>> task = docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
-                    //                                                                      v);
                     Task<ResourceResponse<Document>> task = InsertDocAsync(v, log);
                     task.Wait();
                 }
@@ -76,8 +89,32 @@ namespace Dfc.ProviderPortal.Venues.Storage
             try {
                 if (venue.id == Guid.Empty)
                     venue.id = Guid.NewGuid();
-                return await docClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection),
-                                                           venue);
+                Uri uri = UriFactory.CreateDocumentCollectionUri(SettingsHelper.Database, SettingsHelper.Collection);
+
+                // Insert venue doc, get it's cosmos "sequence" value, then write it back into LocationId property
+                Document doc = await docClient.CreateDocumentAsync(uri, venue);
+                Sequence sequence = docClient.CreateDocumentQuery<Sequence>(uri, $"SELECT DOCUMENTID(v) AS SequenceId FROM v " +
+                                                                                 $"WHERE v.id = \"{venue.id}\"")
+                                             .ToList()
+                                             .First();
+                doc.SetPropertyValue("LocationId", sequence.SequenceId + 1000); // offset is hardcoded here because changing a setting could produce duplicate values!
+
+
+                // Add latitude & logitude from onspd azure search
+                log.LogInformation($"getting lat/long for location {venue.POSTCODE}");
+                SearchParameters parameters = new SearchParameters
+                {
+                    Select = new[] { "pcds", "lat", "long" },
+                    SearchMode = SearchMode.All,
+                    Top = 1,
+                    QueryType = QueryType.Full
+                };
+                DocumentSearchResult<dynamic> results = _onspdIndex.Documents.Search<dynamic>(venue.POSTCODE, parameters);
+                doc.SetPropertyValue("Latitude", (decimal?)results?.Results?.FirstOrDefault()?.Document?.lat);
+                doc.SetPropertyValue("Longitude", (decimal?)results?.Results?.FirstOrDefault()?.Document?.@long);
+
+                return await docClient.UpsertDocumentAsync(uri, doc);
+
             } catch (Exception ex) {
                     throw ex;
             }
@@ -214,10 +251,25 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// <param name="log">Ilogger for logging info/errors</param>
         public Venue GetByVenueId(int venueId, ILogger log)
         {
-            // Get matching venue by id from the collection
+            // Get matching venue by VenueId from the collection
             log.LogInformation($"Getting venue from collection with VenueId {venueId}");
             return docClient.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
                             .Where(v => v.VENUE_ID == venueId)
+                            .AsEnumerable()
+                            .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Gets document with matching LocationId from the collection and returns the data as Venue object
+        /// </summary>
+        /// <param name="locationId">LocationId to search by</param>
+        /// <param name="log">Ilogger for logging info/errors</param>
+        public Venue GetByLocationId(int locationId, ILogger log)
+        {
+            // Get matching venue by LocationId from the collection
+            log.LogInformation($"Getting venue from collection with LocationId {locationId}");
+            return docClient.CreateDocumentQuery<Venue>(Collection.SelfLink, new FeedOptions { EnableCrossPartitionQuery = true, MaxItemCount = -1 })
+                            .Where(v => v.LocationId == locationId)
                             .AsEnumerable()
                             .FirstOrDefault();
         }

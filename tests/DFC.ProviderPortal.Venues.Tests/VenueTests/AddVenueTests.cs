@@ -23,7 +23,10 @@ namespace Dfc.ProviderPortal.Venues.Tests
 
         private const string VENUE_TO_ADD = "{" +
                                             "  \"UKPRN\": \"123456789\"," +
+                                            "  \"PROVIDER_ID\": \"1020304\"," +
+                                            "  \"VENUE_ID\": \"2030405\"," +
                                             "  \"VENUE_NAME\": \"My fab venue2\"," +
+                                            "  \"PROV_VENUE_ID\": \"3040506\"," +
                                             "  \"ADDRESS_1\": \"123 High Street\"," +
                                             "  \"ADDRESS_2\": \"Learnsville\"," +
                                             "  \"TOWN\": \"Birmingham\"," +
@@ -33,6 +36,10 @@ namespace Dfc.ProviderPortal.Venues.Tests
                                             "  \"EMAIL\": \"a@b.com\"," +
                                             "  \"WEBSITE\": \"http://www.something.co.uk\"," +
                                             "  \"Status\": 1," +
+                                            "  \"Latitude\": 2," +
+                                            "  \"Longitude\": 3," +
+                                            "  \"LocationId\": 4," +
+                                            "  \"TribalLocationId\": 5," +
                                             "  \"DateUpdated\": \"2018-12-07T09:42:39.4909052+00:00\"," +
                                             "  \"UpdatedBy\": \"Ian\"" +
                                             "}";
@@ -53,7 +60,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
         //}
 
 
-        
+
         //[Fact]
         //private void _AddVenue_Run()
         //{

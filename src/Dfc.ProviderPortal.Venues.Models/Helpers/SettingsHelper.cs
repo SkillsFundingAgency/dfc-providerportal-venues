@@ -26,5 +26,8 @@ namespace Dfc.ProviderPortal.Venues
         static public string PrimaryKey = config.GetValue<string>("APPSETTING_CosmosDBPrimaryKey");
         static public string Database = config.GetValue<string>("APPSETTING_CosmosDBDatabase");
         static public string Collection = config.GetValue<string>("APPSETTING_CollectionName");
+        static public string SearchService = config.GetValue<string>("APPSETTING_SearchService");
+        static public string QueryKey = config.GetValue<string>("APPSETTING_QueryKey");
+        static public string PostcodeIndex = config.GetValue<string>("APPSETTING_PostcodeIndex");
     }
 }
