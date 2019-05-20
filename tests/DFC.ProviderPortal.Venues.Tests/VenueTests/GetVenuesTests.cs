@@ -22,7 +22,8 @@ namespace Dfc.ProviderPortal.Venues.Tests
         //private const long EXPECTED_COUNT = 15979;
 
         private const string VENUE_BY_ID = "{ \"id\": \"ac8a9ef7-ef6e-4724-a30e-e2d2789ff3a5\" }";
-        private const string VENUE_BY_PRN = "{ \"PRN\": 10003289 }";
+        private const string VENUE_BY_PRN = "{ \"PRN\": 10001800 }";
+        private const string VENUE_BY_LOCATIONID = "{ \"LocationId\": 20012 }";
         private const string VENUE_BY_PRN_AND_NAME = "{" +
                                                      "  \"PRN\": 10003289," +
                                                      "  \"Name\": \"WORK BASED TRAINING (DONCASTER)\" }";
@@ -65,6 +66,17 @@ namespace Dfc.ProviderPortal.Venues.Tests
         //    _venues = TestHelper.GetAFReturnedObjects<Venue>(task);
 
         //    Assert.True(_venues.Any());
+        //}
+
+        //[Fact]
+        //public void _GetVenuesByLocationId_Run()
+        //{
+        //    System.Net.Http.HttpRequestMessage rm = TestHelper.CreateRequest(new Uri(URI_PATH + "GetVenueByLocationId"),
+        //                                                                     VENUE_BY_LOCATIONID);
+        //    Task<HttpResponseMessage> task = GetVenueByLocationId.Run(rm, new LogHelper((ILogger)null));
+        //    Venue venue = TestHelper.GetAFReturnedObject<Venue>(task);
+
+        //    Assert.True(venue != null);
         //}
 
         //[Fact]
