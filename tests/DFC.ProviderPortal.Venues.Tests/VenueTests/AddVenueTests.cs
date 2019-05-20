@@ -40,7 +40,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
                                             "  \"Longitude\": 3," +
                                             "  \"LocationId\": 4," +
                                             "  \"TribalLocationId\": 5," +
-                                            "  \"DateUpdated\": \"2018-12-07T09:42:39.4909052+00:00\"," +
+                                            "  \"DateUpdated\": \"2018-12-07T09:42:39.4909052+00:00\"," + 
                                             "  \"UpdatedBy\": \"Ian\"" +
                                             "}";
         private const string ADDED_VENUE = "{{ \"id\": \"{0}\" }}";
