@@ -16,7 +16,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
 {
     public class AddVenueTests
     {
-        private Venue _venue = null;
+        //private Venue _venue = null;
 
         private const string URI_PATH = "http://localhost:7071/api/";
         //private const long EXPECTED_COUNT = 15970;
