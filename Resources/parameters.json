@@ -21,13 +21,22 @@
       "value": "https://dfc-foo-prov-cdb.documents.azure.com/"
     },
     "cosmosDBkey": {
-      "value": "not-a-real-key"
+      "value": "not-a-real-key=="
     },
     "cosmosDBdatabase": {
       "value": "mydb"
     },
     "cosmosDBcollection": {
       "value": "mycoll"
+    },
+    "azureSearchName": {
+      "value": "dfc-foo-prov-sch"
+    },
+    "azureSearchQueryKey": {
+      "value": "not-a-real-key=="
+    },
+    "postcodeIndexName": {
+      "value": "onspd"
     }
   }
 }
