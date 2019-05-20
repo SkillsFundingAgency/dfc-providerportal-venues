@@ -16,7 +16,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
 {
     public class AddVenueTests
     {
-        private Venue _venue = null;
+        //private Venue _venue = null;
 
         private const string URI_PATH = "http://localhost:7071/api/";
         //private const long EXPECTED_COUNT = 15970;
@@ -31,7 +31,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
                                             "  \"ADDRESS_2\": \"Learnsville\"," +
                                             "  \"TOWN\": \"Birmingham\"," +
                                             "  \"COUNTY\": \"West Midlands\"," +
-                                            "  \"POSTCODE\": \"B12 3YZ\"," +
+                                            "  \"POSTCODE\": \"B1 2JP\"," +
                                             "  \"PHONE\": \"021 121 1212\"," +
                                             "  \"EMAIL\": \"a@b.com\"," +
                                             "  \"WEBSITE\": \"http://www.something.co.uk\"," +
