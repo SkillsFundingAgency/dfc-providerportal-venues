@@ -31,7 +31,7 @@ namespace Dfc.ProviderPortal.Venues.Tests
                                             "  \"ADDRESS_2\": \"Learnsville\"," +
                                             "  \"TOWN\": \"Birmingham\"," +
                                             "  \"COUNTY\": \"West Midlands\"," +
-                                            "  \"POSTCODE\": \"B12 3YZ\"," +
+                                            "  \"POSTCODE\": \"B1 2JP\"," +
                                             "  \"PHONE\": \"021 121 1212\"," +
                                             "  \"EMAIL\": \"a@b.com\"," +
                                             "  \"WEBSITE\": \"http://www.something.co.uk\"," +
