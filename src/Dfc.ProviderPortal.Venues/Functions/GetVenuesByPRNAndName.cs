@@ -50,7 +50,7 @@ namespace Dfc.ProviderPortal.Venues
                 else {
                     // Get data
                     results = new VenueStorage().GetByPRN(parsed, log)
-                                                .Where(p => p.VENUE_NAME.ToLower().Contains(name.ToLower()));
+                                                .Where(p => p.VENUE_NAME.ToLower().StartsWith(name.ToLower()) && p.VENUE_NAME.Length == name.Length);
 
 
                     // Return results
