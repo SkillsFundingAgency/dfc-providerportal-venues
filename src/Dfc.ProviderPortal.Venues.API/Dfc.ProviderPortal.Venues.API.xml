@@ -4,75 +4,35 @@
         <name>Dfc.ProviderPortal.Venues.API</name>
     </assembly>
     <members>
-        <member name="T:Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController">
+        <member name="T:Dfc.ProviderPortal.Venues.API.Controllers.VenuesFunctionAppSwaggerGenController">
             <summary>
-            Controller classs for Venues API
-            Provider actions moved from VenuesController to allow Swagger to resolve routes properly
+            Controller containing one stub method per Azure function
+            Allows Swashbuckle to generate the swagger doc for the Function App
             </summary>
         </member>
-        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController.#ctor(Microsoft.Extensions.Logging.ILogger{Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController})">
-            <summary>
-            Constructor
-            </summary>
-            <param name="logger"></param>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesFunctionAppSwaggerGenController.AddVenue(Dfc.ProviderPortal.Venues.Models.Venue)">
+            <summary />
         </member>
-        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController.GetByPRN(System.Int32)">
-            <summary>
-            All venues by PRN, for example:
-            GET api/providers/10000409/venues
-            </summary>
-            <param name="PRN">UKPRN value</param>
-            <returns>List of matching venues</returns>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesFunctionAppSwaggerGenController.GetAllVenues">
+            <summary />
         </member>
-        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.ProvidersController.GetByPRNAndName(System.Int32,System.String)">
-            <summary>
-            All venues by PRN with an exact (case sensitive) match on name, for example:
-            GET api/providers/10000409/venues/DENTON COMMUNITY COLLEGE
-            </summary>
-            <param name="PRN">UKPRN value</param>
-            <param name="Name">Venue name</param>
-            <returns>List of matching venues</returns>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesFunctionAppSwaggerGenController.GetVenueById(System.Guid)">
+            <summary />
         </member>
-        <member name="T:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController">
-            <summary>
-            Controller classs for Venues API
-            </summary>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesFunctionAppSwaggerGenController.GetVenueByVenueId(System.Int32)">
+            <summary />
         </member>
-        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.#ctor(Microsoft.Extensions.Logging.ILogger{Dfc.ProviderPortal.Venues.API.Controllers.VenuesController})">
-            <summary>
-            Constructor
-            </summary>
-            <param name="logger"></param>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesFunctionAppSwaggerGenController.GetVenuesByPRN(System.Int32)">
+            <summary />
         </member>
-        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.Get">
-            <summary>
-            All venues, for example:
-            GET api/venues
-            </summary>
-            <returns>All venues</returns>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesFunctionAppSwaggerGenController.GetVenuesByPRNAndName(System.Int32,System.String)">
+            <summary />
         </member>
-        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.Get(System.Guid)">
-            <summary>
-            Venue (if any) with matching id, for example:
-            GET api/venues/620a83bf-902f-4257-9a37-2c9a95276ad3
-            </summary>
-            <param name="id">GUID id value</param>
-            <returns>Matching venue, if any</returns>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesFunctionAppSwaggerGenController.GetVenuesByUKPRNAndPostCode(System.Int32,System.String)">
+            <summary />
         </member>
-        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.Get(System.Int32)">
-            <summary>
-            Venue (if any) with matching id, for example:
-            GET api/venues/3010917
-            </summary>
-            <param name="venueId">VenueId value</param>
-            <returns>Matching venue, if any</returns>
-        </member>
-        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesController.Post(Dfc.ProviderPortal.Venues.Models.Venue)">
-            <summary>
-            Create new venue via post
-            POST api/venues
-            </summary>
-            <param name="venue">Data for new venue</param>
+        <member name="M:Dfc.ProviderPortal.Venues.API.Controllers.VenuesFunctionAppSwaggerGenController.UpdateVenueById(Dfc.ProviderPortal.Venues.Models.Venue)">
+            <summary />
         </member>
     </members>
 </doc>
