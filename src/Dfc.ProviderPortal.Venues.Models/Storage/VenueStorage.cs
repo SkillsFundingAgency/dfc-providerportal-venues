@@ -29,11 +29,15 @@ namespace Dfc.ProviderPortal.Venues.Storage
         /// <summary>
         /// CosmosDB client and collection
         /// </summary>
+
+        const int LOCATIONID_OFFSET = 100000;   // offset is hardcoded here (rather than configurable via settings) because changing it later could produce duplicate values!
+                                                // legacy values from Tribal database are all below this value
         static private DocumentClient docClient = StorageFactory.DocumentClient;
         static private DocumentCollection Collection = StorageFactory.DocumentCollection;
 
         private static SearchServiceClient _queryService;
         private static ISearchIndexClient _onspdIndex;
+        int count = 0;
 
         /// <summary>
         /// Public constructor
@@ -69,13 +73,43 @@ namespace Dfc.ProviderPortal.Venues.Storage
                 Exception be = ex.GetBaseException();
                 log.LogError($"Exception rasied at: {DateTime.Now}\n {be.Message}", ex);
                 throw;
+
             } catch (Exception ex) {
                 Exception be = ex.GetBaseException();
                 log.LogError($"Exception rasied at: {DateTime.Now}\n {be.Message}", ex);
                 throw;
+
             } finally {
             }
             return true;
+        }
+
+        /// <summary>
+        /// Set all venues to have LocationId set to value from Tribal database, if any
+        /// </summary>
+        /// <param name="log">ILogger for logging info/errors</param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Venue>> UpdateLocationIdsAsync(ILogger log)
+        {
+            //Update venues docs in Cosmos to have LocationId set to value from Tribal database
+            try {
+                IEnumerable<Venue> tribalVenues = SQLSync.GetAll(out int count);
+                foreach (Venue tribalVenue in tribalVenues.Where(tv => tv.LocationId.HasValue))
+                {
+                    Venue v = GetByVenueId(tribalVenue.VENUE_ID, log);
+                    v.LocationId = tribalVenue.LocationId;
+                    v.TribalLocationId = v.LocationId;
+                    await UpdateDocAsync(v, log);
+                }
+                return tribalVenues;
+
+            } catch (Exception ex) {
+                Exception be = ex.GetBaseException();
+                log.LogError($"Exception rasied at: {DateTime.Now}\n {be?.Message}", ex);
+                throw;
+
+            } finally {
+            }
         }
 
         /// <summary>
@@ -97,11 +131,10 @@ namespace Dfc.ProviderPortal.Venues.Storage
                                                                                  $"WHERE v.id = \"{venue.id}\"")
                                              .ToList()
                                              .First();
-                doc.SetPropertyValue("LocationId", sequence.SequenceId + 1000); // offset is hardcoded here because changing a setting could produce duplicate values!
-
+                doc.SetPropertyValue("LocationId", sequence.SequenceId + LOCATIONID_OFFSET);
 
                 // Add latitude & logitude from onspd azure search
-                log.LogInformation($"getting lat/long for location {venue.POSTCODE}");
+                log.LogInformation($"{count++}: getting lat/long for location {venue.POSTCODE}");
                 SearchParameters parameters = new SearchParameters
                 {
                     Select = new[] { "pcds", "lat", "long" },
@@ -116,7 +149,7 @@ namespace Dfc.ProviderPortal.Venues.Storage
                 return await docClient.UpsertDocumentAsync(uri, doc);
 
             } catch (Exception ex) {
-                    throw ex;
+                throw ex;
             }
         }
 
