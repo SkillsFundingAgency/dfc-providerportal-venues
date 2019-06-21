@@ -55,6 +55,24 @@
       "metadata": {
         "description": "Cosmos DB collection name for app settings"
       }
+    },
+    "azureSearchName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of Azure Search where the indexes are"
+      }
+    },
+    "azureSearchQueryKey": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Query key for Azure Search"
+      }
+    },
+    "postcodeIndexName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the postcode index"
+      }
     }
   },
   "variables": {
@@ -141,6 +159,18 @@
               {
                 "name": "CollectionName",
                 "value": "[parameters('cosmosDBcollection')]"
+              },
+              {
+                "name": "SearchService",
+                "value": "[parameters('azureSearchName')]"
+              },
+              {
+                "name": "QueryKey",
+                "value": "[parameters('azureSearchQueryKey')]"
+              },
+              {
+                "name": "PostcodeIndex",
+                "value": "[parameters('postcodeIndexName')]"
               }
             ]
           },

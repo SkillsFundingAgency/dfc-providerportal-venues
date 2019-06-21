@@ -1,31 +1,36 @@
 ﻿
-DROP PROCEDURE up_UKRLP_Course_Directory_Migration
+DROP PROCEDURE dbo.dfc_TribalToCourseDirectoryVenueMigration
 GO
 
-CREATE PROCEDURE up_UKRLP_Course_Directory_Migration
+CREATE PROCEDURE dbo.dfc_TribalToCourseDirectoryVenueMigration
 
 AS
+BEGIN
+  SELECT V.VenueName AS VENUE_NAME
+	  ,V.VenueId AS VENUE_ID
+	  ,P.Ukprn AS UKPRN
+	  ,V.ProviderId AS PROVIDER_ID
+	  ,V.ProviderOwnVenueRef AS PROV_VENUE_ID
+      ,V.Email AS EMAIL
+      ,V.Website AS WEBSITE
+	  ,V.Telephone AS PHONE
+	  ,A.AddressLine1 AS ADDRESS_1
+	  ,A.AddressLine2 AS ADDRESS_2
+	  ,A.Town AS TOWN
+	  ,A.County AS COUNTY
+	  ,A.Postcode AS POSTCODE
+	  ,GL.Lat AS Latitude
+	  ,GL.Lng AS Longitude
+	  ,l.LocationId
+	  ,V.CreatedDateTimeUtc AS DATE_CREATED
+	  ,V.ModifiedDateTimeUtc AS DATE_UPDATE
+  FROM Tribal.Venue V
+  LEFT OUTER JOIN Tribal.Provider P ON V.ProviderId = P.ProviderId
+  LEFT OUTER JOIN Tribal.Address A ON V.AddressId = A.AddressId
+  LEFT OUTER JOIN Tribal.Location l ON A.AddressId = l.AddressId
+  LEFT OUTER JOIN Tribal.GeoLocation GL ON A.Postcode = GL.Postcode
+  WHERE V.RecordStatusId = 2 AND P.RecordStatusId = 2
 
-DECLARE @venues TABLE(PROVIDER_ID int, VENUE_ID int, VENUE_NAME nvarchar(255), PROV_VENUE_ID nvarchar(255), PHONE nvarchar(30),
-					  ADDRESS_1 nvarchar(110), ADDRESS_2 nvarchar(100), TOWN nvarchar(75), COUNTY nvarchar(75), POSTCODE nvarchar(30),
-					  EMAIL nvarchar(256), WEBSITE nvarchar(255), FAX nvarchar(35), FACILITIES nvarchar(2000),
-					  DATE_CREATED nvarchar(20), DATE_UPDATE nvarchar(20), STATUS nvarchar(20), UPDATED_BY nvarchar(20), CREATED_BY nvarchar(20),
-					  XMIN nvarchar(20), XMAX nvarchar(20), YMIN nvarchar(20), YMAX nvarchar(20), X_COORD float,Y_COORD float,
-					  SEARCH_REGION nvarchar(30), SYS_DATA_SOURCE nvarchar(20), DATE_UPDATED_COPY_OVER nvarchar(20), DATE_CREATED_COPY_OVER nvarchar(20))
-INSERT INTO @venues
-	EXEC up_VenueListForCsvExport;
-
-WITH CTE	(PROVIDER_ID, VENUE_ID, VENUE_NAME, PROV_VENUE_ID, PHONE, ADDRESS_1, ADDRESS_2, TOWN, COUNTY, POSTCODE, EMAIL, WEBSITE,
-			 DATE_UPDATE, UPDATED_BY) --, CDStatus)
-AS (
-	--exec up_VenueListForCsvExport
-	SELECT	PROVIDER_ID, VENUE_ID, VENUE_NAME, PROV_VENUE_ID, PHONE, ADDRESS_1, ADDRESS_2, TOWN, COUNTY, POSTCODE, EMAIL, WEBSITE,
-			DATE_UPDATE, UPDATED_BY --, CASE WHEN POSTCODE IS NULL THEN 3 ELSE 1 END AS CDStatus
-	FROM	@venues
-)
-SELECT		p.Ukprn AS UKPRN, c.*
-FROM		Tribal.Provider p
-INNER JOIN	CTE c
-ON			p.ProviderId = c.PROVIDER_ID
+END
 GO
 

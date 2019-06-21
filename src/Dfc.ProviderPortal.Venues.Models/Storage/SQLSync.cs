@@ -23,8 +23,8 @@ namespace Dfc.ProviderPortal.Venues
 
                 try
                 {
-                    //DbCommand cm = new SqlCommand("up_VenueListForCsvExport", (SqlConnection)cn);
-                    DbCommand cm = new SqlCommand("up_UKRLP_Course_Directory_Migration", (SqlConnection)cn);
+                    //DbCommand cm = new SqlCommand("up_UKRLP_Course_Directory_Migration", (SqlConnection)cn);
+                    DbCommand cm = new SqlCommand("dfc_TribalToCourseDirectoryVenueMigration", (SqlConnection)cn);
                     DbDataReader dr = cm.ExecuteReader();
                     while (dr.Read()) {
                         results.Add(
@@ -57,9 +57,11 @@ namespace Dfc.ProviderPortal.Venues
                                 //DATE_UPDATED_COPY_OVER = dr.SafeGetString("DATE_UPDATED_COPY_OVER"),
                                 //DATE_CREATED_COPY_OVER = dr.SafeGetString("DATE_CREATED_COPY_OVER"),
 
+                                LocationId = dr.IsDBNull(dr.GetOrdinal("LocationId")) ? (int?)null : dr.SafeGetInt("LocationId"),
+                                TribalLocationId = dr.IsDBNull(dr.GetOrdinal("LocationId")) ? (int?)null : dr.SafeGetInt("LocationId"),
                                 Status = string.IsNullOrEmpty(dr.SafeGetString("POSTCODE")) ? VenueStatus.Pending : VenueStatus.Live,
-                                DateUpdated = DateTime.Now,
-                                UpdatedBy = dr.SafeGetString("UPDATED_BY")
+                                DateUpdated = DateTime.Now //,
+                                //UpdatedBy = dr.SafeGetString("UPDATED_BY")
                             }
                         );
                         i++;
