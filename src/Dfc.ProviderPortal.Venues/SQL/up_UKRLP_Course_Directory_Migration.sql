@@ -28,3 +28,4 @@ FROM		Tribal.Provider p
 INNER JOIN	CTE c
 ON			p.ProviderId = c.PROVIDER_ID
 GO
+
