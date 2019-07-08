@@ -18,7 +18,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult AddVenue(Venue venue, [Required]string code)
+        public IActionResult AddVenue(Venue venue)
         {
             return Ok();
         }
@@ -29,7 +29,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetAllVenues([Required]string code)
+        public IActionResult GetAllVenues()
         {
             return Ok();
         }
@@ -40,7 +40,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetVenueById(Guid id, [Required]string code)
+        public IActionResult GetVenueById(Guid id)
         {
             return Ok();
         }
@@ -51,7 +51,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetVenueByLocationId(int LocationId, [Required]string code)
+        public IActionResult GetVenueByLocationId(int LocationId)
         {
             return Ok();
         }
@@ -62,7 +62,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetVenueByVenueId(int venueId, [Required]string code)
+        public IActionResult GetVenueByVenueId(int venueId)
         {
             return Ok();
         }
@@ -73,7 +73,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetVenuesByPRN(int prn, [Required]string code)
+        public IActionResult GetVenuesByPRN(int prn)
         {
             return Ok();
         }
@@ -84,7 +84,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetVenuesByPRNAndName(int prn, string name, [Required]string code)
+        public IActionResult GetVenuesByPRNAndName(int prn, string name)
         {
             return Ok();
         }
@@ -95,7 +95,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult GetVenuesByUKPRNAndPostCode(int UKPRN, string PostCode, [Required]string code)
+        public IActionResult GetVenuesByUKPRNAndPostCode(int UKPRN, string PostCode)
         {
             return Ok();
         }
@@ -106,7 +106,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult UpdateVenueById(Venue venue, [Required]string code)
+        public IActionResult UpdateVenueById(Venue venue)
         {
             return Ok();
         }

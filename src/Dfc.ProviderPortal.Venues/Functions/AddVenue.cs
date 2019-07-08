@@ -19,7 +19,7 @@ namespace Dfc.ProviderPortal.Venues
     public static class AddVenue
     {
         [FunctionName("AddVenue")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "post", Route = null)]HttpRequestMessage req,
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequestMessage req,
                                                           ILogger log)
         {
             Venue venue = null;
