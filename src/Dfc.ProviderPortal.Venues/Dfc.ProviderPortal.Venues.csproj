@@ -2,6 +2,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <AzureFunctionsVersion>v2</AzureFunctionsVersion>
+    <AssemblyVersion>1.0.19189.1335</AssemblyVersion>
+    <FileVersion>1.0.19189.1335</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="local.settings.json" />

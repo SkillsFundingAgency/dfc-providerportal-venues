@@ -17,7 +17,7 @@ namespace Dfc.ProviderPortal.Venues.Functions
     public class GetVenuesByUKPRNAndPostCode
     {
         [FunctionName("GetVenuesByUKPRNAndPostCode")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req,
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req,
                                                   ILogger log)
         {
             IEnumerable<Venue> results = null;

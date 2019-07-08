@@ -18,7 +18,7 @@ namespace Dfc.ProviderPortal.Venues
     public static class SyncVenues
     {
         [FunctionName("SyncVenues")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req,
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req,
                                                           ILogger log)
         {
             log.LogInformation("C# HTTP trigger function processed SyncVenues request");
