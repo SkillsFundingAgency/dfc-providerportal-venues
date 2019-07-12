@@ -33,8 +33,21 @@ namespace Dfc.ProviderPortal.Venues
             try {
                 // Get passed argument (from query if present, if from JSON posted in body if not)
                 log.LogInformation($"GetVenuesByPRN starting");
-                dynamic args = await (dynamic)req.Content.ReadAsAsync<object>();
-                string PRN = req.RequestUri.ParseQueryString()["prn"]?.ToString() ?? args?.PRN;
+
+                // NOTE: This is a dirty fix as a workaround to make sure this function works with both "POST" and "GET" properly.
+                // This is needed to fix a bug with this when using "GET" to keep Dev CD app working whilst API-M changes are going in.
+                // TODO: Refactor this eventually.
+                var PRN = string.Empty;
+
+                try
+                {
+                    dynamic args = await (dynamic)req.Content.ReadAsAsync<object>();
+                    PRN = req.RequestUri.ParseQueryString()["prn"]?.ToString() ?? args?.PRN;
+                }
+                catch (Exception e)
+                {
+                    PRN = req.RequestUri.ParseQueryString()["prn"]?.ToString();
+                }
 
                 if (PRN == null)
                     //throw new FunctionException("Missing PRN argument", "GetVenuesByPRN", null);
