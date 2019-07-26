@@ -36,7 +36,7 @@ namespace Dfc.ProviderPortal.Venues.Controllers
 
         [Route("GetVenueById")]
         [HttpGet]
-        [HttpPost]
+        [HttpPost] 
         [ProducesResponseType(typeof(Venue), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
