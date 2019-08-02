@@ -27,8 +27,8 @@ namespace Dfc.ProviderPortal.Venues.Functions
             {
                 // Get passed argument (from query if present, if from JSON posted in body if not)
                 log.LogInformation($"GetVenuesByUKPRNAndPostCode starting");
-                string UKPRN = req.RequestUri.ParseQueryString()["UKPRN"]?.ToString() ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.UKPRN;
-                string PostCode = req.RequestUri.ParseQueryString()["PostCode"]?.ToString() ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.PostCode;
+                string UKPRN = req.RequestUri.ParseQueryString()["UKPRN"];//?.ToString() ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.UKPRN;
+                string PostCode = req.RequestUri.ParseQueryString()["PostCode"];//?.ToString() ?? (await (dynamic)req.Content.ReadAsAsync<object>())?.PostCode;
 
                 if (UKPRN == null)
                     response = req.CreateResponse(HttpStatusCode.BadRequest, ResponseHelper.ErrorMessage("Missing UKPRN argument"));
@@ -38,9 +38,10 @@ namespace Dfc.ProviderPortal.Venues.Functions
                     response = req.CreateResponse(HttpStatusCode.BadRequest, ResponseHelper.ErrorMessage("Invalid UKPRN argument"));
                 else
                 {
+                    PostCode = PostCode.Replace(" ", string.Empty).Trim().ToLower();
                     // Get data
                     results = new VenueStorage().GetByPRN(parsedUKPRN, log)
-                                                .Where(p => p.POSTCODE.ToLower() == PostCode.ToLower());
+                                                .Where(p => p.POSTCODE.Replace(" ", string.Empty).Trim().ToLower() == PostCode);
 
                     // Return results
                     response = req.CreateResponse(results.Any() ? HttpStatusCode.OK : HttpStatusCode.NoContent);
