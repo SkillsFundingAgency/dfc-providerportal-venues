@@ -34,9 +34,9 @@ namespace Dfc.ProviderPortal.Venues
             try {
                 // Get passed argument (from query if present, if from JSON posted in body if not)
                 log.LogInformation($"GetVenuesByPRNAndName starting");
-                dynamic args = await (dynamic)req.Content.ReadAsAsync<object>();
-                string PRN = req.RequestUri.ParseQueryString()["prn"]?.ToString() ?? args?.PRN;
-                string name = req.RequestUri.ParseQueryString()["name"]?.ToString() ?? args?.Name;
+                //dynamic args = await (dynamic)req.Content.ReadAsAsync<object>();
+                string PRN = req.RequestUri.ParseQueryString()["prn"];//?.ToString() ?? args?.PRN;
+                string name = req.RequestUri.ParseQueryString()["name"];//?.ToString() ?? args?.Name;
 
                 if (PRN == null)
                     //throw new FunctionException("Missing PRN argument", "GetVenuesByPRNAndName", null);
