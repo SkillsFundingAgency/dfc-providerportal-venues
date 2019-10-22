@@ -38,6 +38,9 @@
     "cosmosDBkey": {
       "value": "not-a-real-key=="
     },
+    "cosmosDbAccount": {
+      "value": "myaccount"
+    },
     "cosmosDBdatabase": {
       "value": "mydb"
     },
