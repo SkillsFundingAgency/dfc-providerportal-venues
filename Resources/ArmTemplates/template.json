@@ -74,6 +74,12 @@
         "description": "Query key for Azure Search"
       }
     },
+    "providerPortalApplicationInsights": {
+      "type": "string",
+      "metadata": {
+        "description": "Application Insights Reference for Course Directory i.e. dfc-<env>-prov-as-ai"
+      }
+    },
     "postcodeIndexName": {
       "type": "string",
       "metadata": {
@@ -136,7 +142,7 @@
             "value": [
               {
                 "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
-                "value": "[reference('ppvenueAppInsights').outputs.InstrumentationKey.value]"
+                "value": "[reference(resourceId(parameters('appServicePlanResourceGroup'), 'Microsoft.Insights/components', parameters('providerPortalApplicationInsights')), '2015-05-01', 'Full').properties.InstrumentationKey]"
               },
               {
                 "name": "FUNCTIONS_EXTENSION_VERSION",
