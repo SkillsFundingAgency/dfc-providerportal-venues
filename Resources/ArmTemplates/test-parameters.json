@@ -40,6 +40,9 @@
     },
     "postcodeIndexName": {
       "value": "onspd"
+    },
+    "providerPortalApplicationInsights":{
+      "value": "dfc-dev-prov-as-ai"
     }
   }
 }

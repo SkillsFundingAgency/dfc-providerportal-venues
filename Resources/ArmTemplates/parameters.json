@@ -40,6 +40,9 @@
     },
     "postcodeIndexName": {
       "value": "__postcodeIndexName__"
+    },
+    "providerPortalApplicationInsights": {
+      "value": "__providerportalApplicationInsights__"
     }
   }
 }
