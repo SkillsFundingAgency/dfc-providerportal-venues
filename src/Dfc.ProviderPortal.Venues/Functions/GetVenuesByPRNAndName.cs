@@ -25,7 +25,7 @@ namespace Dfc.ProviderPortal.Venues
         //}
 
         [FunctionName("GetVenuesByPRNAndName")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req,
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequestMessage req,
                                                           ILogger log)
         {
             IEnumerable<Venue> results = null;

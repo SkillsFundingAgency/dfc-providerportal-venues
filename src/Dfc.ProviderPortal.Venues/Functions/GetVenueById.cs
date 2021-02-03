@@ -23,7 +23,7 @@ namespace Dfc.ProviderPortal.Venues
         //}
 
         [FunctionName("GetVenueById")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req,
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = null)]HttpRequestMessage req,
                                                           ILogger log)
         {
             Venue v = null;

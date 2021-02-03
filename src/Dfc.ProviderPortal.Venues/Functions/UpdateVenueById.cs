@@ -20,7 +20,7 @@ namespace Dfc.ProviderPortal.Venues
     public static class UpdateVenueById
     {
         [FunctionName("UpdateVenueById")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req,
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequestMessage req,
                                                           ILogger log)
         {
             Venue venue = null;
