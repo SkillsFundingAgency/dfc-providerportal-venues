@@ -19,7 +19,7 @@ namespace Dfc.ProviderPortal.Venues
     public static class GetAllVenues
     {
         [FunctionName("GetAllVenues")]
-        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req,
+        public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = null)]HttpRequestMessage req,
                                                           ILogger log)
         {
             HttpResponseMessage response = req.CreateResponse(HttpStatusCode.InternalServerError);
