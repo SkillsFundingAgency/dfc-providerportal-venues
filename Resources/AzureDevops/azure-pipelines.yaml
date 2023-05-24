@@ -23,12 +23,14 @@ trigger:
     include:
     - master
     - dev
+    - monitoring
 
 pr:
   branches:
     include:
     - master
     - dev
+    - monitoring
 
 steps:
 # ARM template
