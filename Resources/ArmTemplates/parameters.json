@@ -41,9 +41,6 @@
     "postcodeIndexName": {
       "value": "__postcodeIndexName__"
     },
-    "providerPortalApplicationInsights": {
-      "value": "__providerportalApplicationInsights__"
-    },
     "appInsightsInstrumentationKey": {
       "value": "__appInsightsInstrumentationKey__" 
   }
