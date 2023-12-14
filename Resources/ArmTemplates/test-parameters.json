@@ -17,21 +17,6 @@
     "SQLConnectionString": {
       "value": "DefaultEndpointsProtocol=https;AccountName=dfcfooprovstr;AccountKey=this_is_not_a_real_account==;EndpointSuffix=core.windows.net"
     },
-    "cosmosDBfqdn": {
-      "value": "https://dfc-foo-prov-cdb.documents.azure.com/"
-    },
-    "cosmosDBkey": {
-      "value": "not-a-real-key=="
-    },
-    "cosmosDbAccount": {
-      "value": "myaccount"
-    },
-    "cosmosDBdatabase": {
-      "value": "mydb"
-    },
-    "cosmosDBcollection": {
-      "value": "mycoll"
-    },
     "azureSearchName": {
       "value": "dfc-foo-prov-sch"
     },
