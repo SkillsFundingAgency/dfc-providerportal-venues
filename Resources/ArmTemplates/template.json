@@ -32,36 +32,6 @@
         "description": "Connection string for the SQL database"
       }
     },
-    "cosmosDBfqdn": {
-      "type": "string",
-      "metadata": {
-        "description": "Cosmos DB account name in the format https://dfc-xxx-xxx-cdb.documents.azure.com/ for app settings"
-      }
-    },
-    "cosmosDBkey": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Cosmos DB access key for app settings"
-      }
-    },
-    "cosmosDbAccount": {
-      "type": "string",
-      "metadata": {
-        "description": "Cosmos DB account name for creating collections"
-      }
-    },
-    "cosmosDBdatabase": {
-      "type": "string",
-      "metadata": {
-        "description": "Cosmos DB database name for app settings"
-      }
-    },
-    "cosmosDBcollection": {
-      "type": "string",
-      "metadata": {
-        "description": "Cosmos DB collection name for app settings"
-      }
-    },
     "azureSearchName": {
       "type": "string",
       "metadata": {
@@ -161,24 +131,8 @@
                 "value": "dotnet"
               },
               {
-                "name": "CosmosDBStorageURI",
-                "value": "[parameters('cosmosDBfqdn')]"
-              },
-              {
-                "name": "CosmosDBPrimaryKey",
-                "value": "[parameters('cosmosDBkey')]"
-              },
-              {
-                "name": "CosmosDBDatabase",
-                "value": "[parameters('cosmosDBdatabase')]"
-              },
-              {
                 "name": "SQLConnectionString",
                 "value": "[parameters('SQLConnectionString')]"
-              },
-              {
-                "name": "CollectionName",
-                "value": "[parameters('cosmosDBcollection')]"
               },
               {
                 "name": "SearchService",
@@ -196,33 +150,6 @@
           },
           "deployStagingSlot": {
             "value": true
-          }
-        }
-      }
-    },
-    {
-      "apiVersion": "2017-05-10",
-      "name": "cosmosCollectionVenues",
-      "type": "Microsoft.Resources/deployments",
-      "resourceGroup": "[parameters('appServicePlanResourceGroup')]",
-      "properties": {
-        "mode": "Incremental",
-        "templateLink": {
-            "uri": "[concat(variables('deploymentUrlBase'),'CosmosDb/cosmos-collection.json')]",
-            "contentVersion": "1.0.0.0"
-        },
-        "parameters": {
-          "accountName": {
-              "value": "[parameters('cosmosDbAccount')]"
-          },
-          "databaseName": {
-              "value": "[parameters('cosmosDBdatabase')]"
-          },
-          "collectionName": {
-              "value": "venues"
-          },
-          "offerThroughput": {
-              "value": 400
           }
         }
       }

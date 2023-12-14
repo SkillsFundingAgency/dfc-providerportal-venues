@@ -17,21 +17,6 @@
     "SQLConnectionString": {
       "value": "__sqlCourseDirectoryConnectionString__"
     },
-    "cosmosDBfqdn": {
-      "value": "__cosmosDBConnectionStr__"
-    },
-    "cosmosDBkey": {
-      "value": "__providerPortalCosmosDBPrimaryKey__"
-    },
-    "cosmosDbAccount": {
-      "value": "__providerPortalCosmosDBName__"
-    },
-    "cosmosDBdatabase": {
-      "value": "__cosmosDatabase__"
-    },
-    "cosmosDBcollection": {
-      "value": "__cosmosCollection__"
-    },
     "azureSearchName": {
       "value": "__azureSearchName__"
     },
